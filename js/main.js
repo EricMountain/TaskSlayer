@@ -77,13 +77,18 @@ $(function() {
             },
 
             SaveState: function () {
-                sessionStorage.storageService = angular.toJson(service.model);
+                //sessionStorage.storageService = angular.toJson(service.model);
+                localStorage.storageService = angular.toJson(service.model);
                 console.log("saved state: " + service.model.text);
             },
 
             RestoreState: function () {
-                service.model = angular.fromJson(sessionStorage.storageService);
-                console.log("restored state: " + service.model.text);
+                //service.model = angular.fromJson(sessionStorage.storageService);
+                service.model = angular.fromJson(localStorage.storageService);
+                if (service.model)
+                    console.log("restored state: " + service.model.text);
+                else
+                    service.model = { text: 'all new' };
             }
         }
 
