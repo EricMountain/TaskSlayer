@@ -43,8 +43,16 @@
 
         <div id="main-block">
           <div class="sub-block" id="urgent-important">
-            <!-- input class="task" type="text" ng-model="dataModelService.model.text" ng-change="change()"></input -->
-            <input class="task" type="text" ng-repeat="task in dataModelService.model.taskCategories.urgentImportant.tasks.list" ng-model="dataModelService.model.taskCategories.urgentImportant.tasks.list[$index].description" ng-change="change()"></input>
+            <table style="width: 100%">
+              <tr ng-repeat="task in dataModelService.model.taskCategories.urgentImportant.tasks.list">
+                <td>
+                  <button ng-click="deleteTask($index)">Done</button>
+                </td>
+                <td style="width: 100%">
+                  <input class="task" type="text" ng-model="dataModelService.model.taskCategories.urgentImportant.tasks.list[$index].description" ng-change="change()"></input>
+                </td>
+              </tr>
+            </table>
             <form ng-submit="addTask()"><input type="submit" value="add"></form>
           </div>
           <div class="sub-block" id="important">

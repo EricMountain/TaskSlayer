@@ -126,10 +126,7 @@ body {
 
 .sub-block {
     width: 49%;
-    /*height: 200px;*/
     border: 1px solid black;
-    /* box-sizing: border-box;
-    -moz-box-sizing: border-box;  */ /* Firefox */ /* no longer needed in v30+ at least  */
 }    
 
 .wf-loading .kc-form-text {
@@ -137,7 +134,7 @@ body {
 }
 
 .task {
-    width: 100%;
+    width: 100%;    
     color: black;
     background-color: transparent;
     /*border: none;*/
