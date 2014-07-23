@@ -140,7 +140,8 @@ body {
     width: 100%;
     color: black;
     background-color: transparent;
-    border: none;
+    /*border: none;*/
+    border: 1px solid blue;
     /*font-family: 'Raleway', 'Gill Sans', 'Helvetica', 'sans-serif';*/
 }
 

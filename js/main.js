@@ -21,7 +21,33 @@ $(function() {
         var service = {
 
             model: {
-                text: ''
+                text: '',
+                taskCategories: {
+                    urgentImportant: {
+                        description: "Now",
+                        tasks: {
+                            list: []
+                        }
+                    },
+                    urgent: {
+                        description: "Delegate",
+                        tasks: {
+                            list: []
+                        }
+                    },
+                    important: {
+                        description: "Schedule",
+                        tasks: {
+                            list: []
+                        }
+                    },
+                    waste: {
+                        description: "Waste",
+                        tasks: {
+                            list: []
+                        }
+                    }
+                }
             },
 
             SaveState: function () {
@@ -33,10 +59,71 @@ $(function() {
             RestoreState: function () {
                 //service.model = angular.fromJson(sessionStorage.storageService);
                 service.model = angular.fromJson(localStorage.storageService);
-                if (service.model)
-                    console.log("restored state: " + service.model.text);
-                else
-                    service.model = { text: 'all new' };
+                if (service.model) {
+                    console.log("restored state");
+                    if (service.model.text) {
+                        // delete it
+                    }
+                    if (!service.model.taskCategories) {
+                        service.model = {
+                            taskCategories: {
+                                urgentImportant: {
+                                    description: "Now",
+                                    tasks: {
+                                        list: []
+                                    }
+                                },
+                                urgent: {
+                                    description: "Delegate",
+                                    tasks: {
+                                        list: []
+                                    }
+                                },
+                                important: {
+                                    description: "Schedule",
+                                    tasks: {
+                                        list: []
+                                    }
+                                },
+                                waste: {
+                                    description: "Waste",
+                                    tasks: {
+                                        list: []
+                                    }
+                                }
+                            }
+                        };
+                    }
+                } else {
+                    service.model = {
+                        taskCategories: {
+                            urgentImportant: {
+                                description: "Now",
+                                tasks: {
+                                    list: []
+                                }
+                            },
+                            urgent: {
+                                description: "Delegate",
+                                tasks: {
+                                    list: []
+                                }
+                            },
+                            important: {
+                                description: "Schedule",
+                                tasks: {
+                                    list: []
+                                }
+                            },
+                            waste: {
+                                description: "Waste",
+                                tasks: {
+                                    list: []
+                                }
+                            }
+                        }
+                    };
+                }
             }
         }
 
@@ -53,11 +140,10 @@ $(function() {
 
     taskMatrixApp.controller('taskMatrixCtrl',
                              ['$scope', '$rootScope', '$route', 'dataModelService', function($scope, $rootScope, $route, dataModelService) {
-                                 //$scope.text = "hi";
                                  $scope.dataModelService = dataModelService;
                                  
                                  $scope.change = function() {
-                                     console.log("saving state: " + $scope.dataModelService.model.text);
+                                     console.log("saving state: ");
                                      //service.model.text = $scope.text;
                                      $rootScope.$broadcast('savestate');
                                  };
@@ -70,6 +156,9 @@ $(function() {
                                      }
                                  );
                                  
+                                 $scope.addTask = function() {
+                                     $scope.dataModelService.model.taskCategories.urgentImportant.tasks.list.push({description: "new task", done: false});
+                                 };
                              }
                              ]
                             );
