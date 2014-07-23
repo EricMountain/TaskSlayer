@@ -98,31 +98,50 @@ textarea {
    ========================================================================== */
 
 body {
-    background-color: #D00000;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
-#keep-calm {
+#main-block {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
 }
 
+#urgent-important {
+    float: left;
+}
+
+#important {
+    float: right;
+}
+
+#delegate {
+    float: left;
+}
+
+#waste {
+    float: right;
+}
+
+.sub-block {
+    width: 49%;
+    /*height: 200px;*/
+    border: 1px solid black;
+    /* box-sizing: border-box;
+    -moz-box-sizing: border-box;  */ /* Firefox */ /* no longer needed in v30+ at least  */
+}    
 
 .wf-loading .kc-form-text {
     visibility: hidden;
 }
 
-.kc-form-text {
+.task {
     width: 100%;
-    color: white;
+    color: black;
     background-color: transparent;
     border: none;
-    font-family: 'Raleway', 'Gill Sans', 'Helvetica', 'sans-serif';
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+    /*font-family: 'Raleway', 'Gill Sans', 'Helvetica', 'sans-serif';*/
 }
 
 /* ==========================================================================
