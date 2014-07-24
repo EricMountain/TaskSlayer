@@ -56,13 +56,43 @@
             </table>
           </div>
           <div class="sub-block" id="important">
-
+            <button ng-click="addTask(dataModelService.model.taskCategories.important)">Add</button>
+            <table style="width: 100%">
+              <tr ng-repeat="task in dataModelService.model.taskCategories.important.tasks.list">
+                <td>
+                  <button ng-click="deleteTask(dataModelService.model.taskCategories.important, $index)">Done</button>
+                </td>
+                <td style="width: 100%">
+                  <input class="task" type="text" ng-model="dataModelService.model.taskCategories.important.tasks.list[$index].description" ng-change="change()"></input>
+                </td>
+              </tr>
+            </table>
           </div>
           <div class="sub-block" id="delegate">
-
+            <button ng-click="addTask(dataModelService.model.taskCategories.urgent)">Add</button>
+            <table style="width: 100%">
+              <tr ng-repeat="task in dataModelService.model.taskCategories.urgent.tasks.list">
+                <td>
+                  <button ng-click="deleteTask(dataModelService.model.taskCategories.urgent, $index)">Done</button>
+                </td>
+                <td style="width: 100%">
+                  <input class="task" type="text" ng-model="dataModelService.model.taskCategories.urgent.tasks.list[$index].description" ng-change="change()"></input>
+                </td>
+              </tr>
+            </table>
           </div>
           <div class="sub-block" id="waste">
-
+            <button ng-click="addTask(dataModelService.model.taskCategories.waste)">Add</button>
+            <table style="width: 100%">
+              <tr ng-repeat="task in dataModelService.model.taskCategories.waste.tasks.list">
+                <td>
+                  <button ng-click="deleteTask(dataModelService.model.taskCategories.waste, $index)">Done</button>
+                </td>
+                <td style="width: 100%">
+                  <input class="task" type="text" ng-model="dataModelService.model.taskCategories.waste.tasks.list[$index].description" ng-change="change()"></input>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
 
