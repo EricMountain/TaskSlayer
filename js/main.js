@@ -121,7 +121,8 @@ $(function() {
                 category: '=',
                 deleteTask: '&',
                 addTask: '&',
-                change: '&'
+                change: '&',
+                title: '@'
                    },
             templateUrl: 'angular-templates/task-category.html'
         };

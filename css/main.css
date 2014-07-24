@@ -124,6 +124,26 @@ body {
     float: right;
 }
 
+.title {
+    font-weight: bold;
+}
+
+.now {
+    color: red;
+}
+
+.schedule {
+    color: blue;
+}
+
+.delegate {
+    color: orange;
+}
+
+.waste {
+    color: brown;
+}
+
 .sub-block {
     width: 49%;
     /*border: 1px solid black;*/
