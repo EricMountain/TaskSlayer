@@ -43,6 +43,7 @@
 
         <div id="main-block">
           <div class="sub-block" id="urgent-important">
+            <button ng-click="addTask()">Add</button>
             <table style="width: 100%">
               <tr ng-repeat="task in dataModelService.model.taskCategories.urgentImportant.tasks.list">
                 <td>
@@ -53,7 +54,6 @@
                 </td>
               </tr>
             </table>
-            <form ng-submit="addTask()"><input type="submit" value="add"></form>
           </div>
           <div class="sub-block" id="important">
 
