@@ -126,7 +126,8 @@ body {
 
 .sub-block {
     width: 49%;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
+    border: none;
 }    
 
 .wf-loading .kc-form-text {
@@ -137,8 +138,8 @@ body {
     width: 100%;    
     color: black;
     background-color: transparent;
-    /*border: none;*/
-    border: 1px solid blue;
+    border: none;
+    /*border: 1px solid blue;*/
     /*font-family: 'Raleway', 'Gill Sans', 'Helvetica', 'sans-serif';*/
 }
 
