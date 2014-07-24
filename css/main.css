@@ -100,6 +100,7 @@ textarea {
 body {
     background-color: white;
     color: black;
+    font-size: small;
 }
 
 #main-block {
@@ -148,7 +149,20 @@ body {
     width: 49%;
     /*border: 1px solid black;*/
     border: none;
-}    
+    overflow-y: auto;
+    /*overflow-y: scroll;*/
+    overflow-x: hidden;
+} 
+
+.task-list {
+    /*background-color: lightgrey;*/
+    /*overflow-y: auto;*/
+    /*overflow-y: scroll;*/
+    overflow-x: hidden;
+    /*height: 100%;*/
+    width: 100%;
+
+}
 
 .wf-loading .kc-form-text {
     visibility: hidden;
