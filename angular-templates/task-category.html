@@ -1,0 +1,11 @@
+<button class="button" ng-click="addTask({category: category})">✚</button>
+<table style="width: 100%">
+  <tr ng-repeat="task in category.tasks.list">
+    <td>
+      <button class="button not-done" ng-click="deleteTask({category: category, index: $index})">✓</button>
+    </td>
+    <td style="width: 100%">
+      <input class="task" type="text" ng-model="category.tasks.list[$index].description" ng-change="change()"></input>
+    </td>
+  </tr>
+</table>

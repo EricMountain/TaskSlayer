@@ -142,6 +142,17 @@ body {
     /*font-family: 'Raleway', 'Gill Sans', 'Helvetica', 'sans-serif';*/
 }
 
+.button {
+    color: black;
+    background-color: transparent;
+    border: none;
+ }
+
+.not-done {
+    color: green;
+}
+
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */

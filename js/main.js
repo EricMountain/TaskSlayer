@@ -105,6 +105,7 @@ $(function() {
                                  };
                                  
                                  $scope.deleteTask = function(destinationCategory, index) {
+                                     console.log("delete called");
                                      destinationCategory.tasks.list.splice(index, 1);
                                      $rootScope.$broadcast('savestate');
                                  };
@@ -112,6 +113,19 @@ $(function() {
                              }
                              ]
                             );
+
+    taskMatrixApp.directive('taskCategory', function() {
+        return {
+            restrict: 'E',
+            scope: {
+                category: '=',
+                deleteTask: '&',
+                addTask: '&',
+                change: '&'
+                   },
+            templateUrl: 'angular-templates/task-category.html'
+        };
+    });
 
     angular.element(document).ready(function() {
         angular.bootstrap(document, ['taskMatrixApp']);
