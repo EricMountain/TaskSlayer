@@ -103,12 +103,14 @@ $(function() {
                                      }
                                  );
                                  
-                                 $scope.addTask = function() {
-                                     $scope.dataModelService.model.taskCategories.urgentImportant.tasks.list.push({description: "new task", done: false});
+                                 $scope.addTask = function(destinationCategory) {
+                                     destinationCategory.tasks.list.push({description: "new task", done: false});
+                                     $rootScope.$broadcast('savestate');
                                  };
                                  
-                                 $scope.deleteTask = function(index) {
-                                     $scope.dataModelService.model.taskCategories.urgentImportant.tasks.list.splice(index, 1);
+                                 $scope.deleteTask = function(destinationCategory, index) {
+                                     destinationCategory.tasks.list.splice(index, 1);
+                                     $rootScope.$broadcast('savestate');
                                  };
 
                              }
