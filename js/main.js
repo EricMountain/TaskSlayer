@@ -62,10 +62,6 @@ $(function() {
                 service.model = angular.fromJson(localStorage.storageService);
                 if (service.model) {
                     console.log("restored state");
-                    if (service.model.text) {
-                        // delete it
-                        delete service.model.text;
-                    }
                     if (!service.model.taskCategories) {
                         service.InitModel();
                     }
