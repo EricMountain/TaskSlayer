@@ -4,14 +4,24 @@
 // todo - mark done, delete…
 
 $(function() {
-    var marginPct = 0;
-    var pageHeight = $(window).height();
-    var marginHeight = pageHeight * marginPct / 100;
-    var usableHeight = pageHeight - marginHeight * 2;
 
-    // Make sub-blocks half the size of the page
-    var subBlockHeight = usableHeight / 2;
-    $(".sub-block").css({"height": subBlockHeight});
+    function resizeSubBlocks() {
+        var marginPct = 0;
+        var pageHeight = $(window).height();
+        var marginHeight = pageHeight * marginPct / 100;
+        var usableHeight = pageHeight - marginHeight * 2;
+
+        // Make sub-blocks half the size of the page
+        var subBlockHeight = usableHeight / 2;
+        $(".sub-block").css({"height": subBlockHeight});
+    }
+
+
+    $(window).resize(function() {
+        resizeSubBlocks();
+    });
+
+    resizeSubBlocks();
 
     // Bootstrap Angular
     var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute']);
