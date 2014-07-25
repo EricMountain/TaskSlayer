@@ -5,6 +5,7 @@
 
 $(function() {
 
+    // Handle resizing
     function resizeSubBlocks() {
         var marginPct = 0;
         var pageHeight = $(window).height();
@@ -23,8 +24,15 @@ $(function() {
 
     resizeSubBlocks();
 
+    // Handle keystroke shortcuts
+    //$("body").keypress(function (event) {
+    //    
+    //});
+    
+
+
     // Bootstrap Angular
-    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute']);
+    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute', 'ui.utils']);
 
     taskMatrixApp.factory('dataModelService', ['$rootScope', function ($rootScope) {
 
@@ -120,6 +128,27 @@ $(function() {
                                      $rootScope.$broadcast('savestate');
                                  };
 
+                                 $scope.keypress = function($event) {
+                                     // console.log('key: ' + $event);
+                                     // $event.preventDefault();
+                                     return false;
+                                 };
+
+                                 $scope.taskKeypress = function($event) {
+                                     console.log('key-task: ' + $event);
+                                     $event.preventDefault();
+                                     return false;
+                                 };
+
+                                 // $scope.keypressCallback = function($event) {
+                                 //     alert('top');
+                                 //     $event.preventDefault();
+                                 // };
+
+                                 // $scope.keypressCallback2 = function($event) {
+                                 //     alert('task');
+                                 //     $event.preventDefault();
+                                 // };
                              }
                              ]
                             );
@@ -132,6 +161,7 @@ $(function() {
                 deleteTask: '&',
                 addTask: '&',
                 change: '&',
+                taskKeypress: '&',
                 title: '@'
                    },
             templateUrl: 'angular-templates/task-category.html'
