@@ -110,7 +110,7 @@ $(function() {
                                  );
                                  
                                  $scope.addTask = function(destinationCategory) {
-                                     destinationCategory.tasks.list.push({description: "new task", done: false});
+                                     destinationCategory.tasks.list.push({description: "", done: false});
                                      $rootScope.$broadcast('savestate');
                                  };
                                  
@@ -136,6 +136,19 @@ $(function() {
                    },
             templateUrl: 'angular-templates/task-category.html'
         };
+    });
+
+    taskMatrixApp.directive('initialFocus', function() {
+        var timer;
+
+        return function(scope, element, attr) {
+            if (timer) clearTimeout(timer);
+
+            timer = setTimeout(function() {
+                element[0].focus();
+                element[0].select();
+            }, 0);
+        }
     });
 
     angular.element(document).ready(function() {
