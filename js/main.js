@@ -142,7 +142,7 @@ $(function() {
         };
 
         $scope.focusTask = function(category, index) {
-            if (category.tasks.list.length > index) {
+            if (category.tasks.list.length > index && index >= 0) {
                 setTimeout(function() {
                     $("#" + category.description + "-" + index).focus();
                 }, 0);
@@ -185,7 +185,7 @@ $(function() {
 
         $scope.taskKeypress = function($event, category, index) {
             var isHandledHere = true;
-
+            console.log("keycode: " + $event.keyCode);
             if ($event.ctrlKey) {
                 switch($event.keyCode) {
                 case 45: // Insert
@@ -199,10 +199,21 @@ $(function() {
                 default:
                     isHandledHere = false;
                 }
-            } else if ($event.keyCode == 13) { // Enter/Return
-                $scope.addTaskAfterIndex(category, index);
-            } else
-                isHandledHere = false;
+            } else {
+                switch($event.keyCode) {
+                case 13: // Enter/Return
+                    $scope.addTaskAfterIndex(category, index);
+                    break;
+                case 38: // Up
+                    $scope.focusTask(category, index - 1);
+                    break;
+                case 40: // Down
+                    $scope.focusTask(category, index + 1);
+                    break;
+                default:
+                    isHandledHere = false;
+                }
+            }
 
             if (isHandledHere)
                 $event.preventDefault();
