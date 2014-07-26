@@ -115,30 +115,40 @@ $(function() {
             $scope.categories = dataModelService.model.taskCategories;
         });
 
-        $scope.addTask = function(destinationCategory) {
-            destinationCategory.tasks.list.push({description: "", done: false});
+        $scope.addTask = function(category, task, persist) {
+            task = (typeof task === "undefined") ? {description: "", done: false} : task;
+            persist = (typeof persist === "undefined") ? true : persist;
+
+            category.tasks.list.push(task);
+
+            if (persist)
+                $rootScope.$broadcast('savestate');
+        };
+
+        $scope.addTaskAfterIndex = function(category, index) {
+            category.tasks.list.splice(index + 1, 0, {description: "", done: false});
             $rootScope.$broadcast('savestate');
         };
 
-        $scope.addTaskAfterIndex = function(destinationCategory, index) {
-            destinationCategory.tasks.list.splice(index + 1, 0, {description: "", done: false});
-            $rootScope.$broadcast('savestate');
-        };
+        $scope.deleteTask = function(category, index, persist) {
+            persist = (typeof persist === "undefined") ? true : persist;
 
-        $scope.deleteTask = function(destinationCategory, index) {
-            destinationCategory.tasks.list.splice(index, 1);
+            task = category.tasks.list.splice(index, 1)[0];
 
             var target;
 
-            if (index == destinationCategory.tasks.list.length && index > 0) {
+            if (index == category.tasks.list.length && index > 0) {
                 target = index - 1;
             } else {
                 target = index;
             }
 
-            $scope.focusTask(destinationCategory, target);
+            $scope.focusTask(category, target);
 
-            $rootScope.$broadcast('savestate');
+            if (persist)
+                $rootScope.$broadcast('savestate');
+
+            return task;
         };
 
         $scope.focusTask = function(category, index) {
@@ -165,6 +175,15 @@ $(function() {
             $scope.focusTask(category, target);
         };
 
+        $scope.moveTaskToCategory = function(destination, source, index) {
+            if (destination === source)
+                return;
+
+            task = $scope.deleteTask(source, index, false);
+
+            $scope.addTask(destination, task);
+        };
+
         $scope.focusCategory = function(category) {
             if (category.tasks.list.length == 0)
                 $scope.addTask(category);
@@ -175,7 +194,7 @@ $(function() {
         $scope.keypress = function($event) {
             var isHandledHere = true;
 
-            if ($event.altKey) {
+            if ($event.altKey && !$event.shiftKey) {
                 switch($event.keyCode) {
                 case 78: // N
                     $scope.focusCategory($scope.categories.urgentImportant);
@@ -202,7 +221,24 @@ $(function() {
         $scope.taskKeypress = function($event, category, index) {
             var isHandledHere = true;
             console.log("keycode: " + $event.keyCode);
-            if ($event.ctrlKey) {
+            if ($event.altKey && $event.shiftKey) {
+                switch($event.keyCode) {
+                case 78: // N
+                    $scope.moveTaskToCategory($scope.categories.urgentImportant, category, index);
+                    break;
+                case 83: // S
+                    $scope.moveTaskToCategory($scope.categories.important, category, index);
+                    break;
+                case 68: // D
+                    $scope.moveTaskToCategory($scope.categories.urgent, category, index);
+                    break;
+                case 87: // W
+                    $scope.moveTaskToCategory($scope.categories.waste, category, index);
+                    break;
+                default:
+                    isHandledHere = false;
+                }
+            } else if ($event.ctrlKey) {
                 switch($event.keyCode) {
                 case 45: // Insert
                     $scope.addTask(category);
