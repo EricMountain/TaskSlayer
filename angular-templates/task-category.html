@@ -1,7 +1,7 @@
 <span class="title">{{category.description}}</span> <button class="button" ng-click="addTask({category: category})">✚</button>
 <div class="task-list">
   <table style="width: 100%">
-    <tr ng-repeat="task in category.tasks.list">
+    <tr ng-repeat="task in category.tasks.list" class="repeated-item">
       <td>
         <button class="button not-done" ng-click="deleteTask({category: category, index: $index})">✓</button>
       </td>

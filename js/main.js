@@ -25,7 +25,7 @@ $(function() {
     resizeSubBlocks();
 
     // Bootstrap Angular
-    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute']);
+    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute', 'ngAnimate']);
 
     taskMatrixApp.factory('dataModelService', ['$rootScope', function ($rootScope) {
 
