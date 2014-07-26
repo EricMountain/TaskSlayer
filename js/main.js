@@ -149,6 +149,22 @@ $(function() {
             }
         };
 
+        $scope.moveTask = function(category, index, direction) {
+            var target = index + direction;
+
+            if (target < 0 || target >= category.tasks.list.length) {
+                return;
+            }
+
+            var tmp = category.tasks.list[index];
+            category.tasks.list[index] = category.tasks.list[target];
+            category.tasks.list[target] = tmp;
+
+            $rootScope.$broadcast('savestate');
+
+            $scope.focusTask(category, target);
+        };
+
         $scope.focusCategory = function(category) {
             if (category.tasks.list.length == 0)
                 $scope.addTask(category);
@@ -195,6 +211,12 @@ $(function() {
                 case 46: // Delete
                 case 13: // Enter/Return
                     $scope.deleteTask(category, index);
+                    break;
+                case 38: // Up
+                    $scope.moveTask(category, index, -1);
+                    break;
+                case 40: // Down
+                    $scope.moveTask(category, index, 1);
                     break;
                 default:
                     isHandledHere = false;
