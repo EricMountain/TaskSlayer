@@ -100,103 +100,96 @@ $(function() {
             .otherwise({ controller: 'taskMatrixCtrl'});
     }]);
 
-    taskMatrixApp.controller('taskMatrixCtrl',
-                             ['$scope', '$rootScope', '$route', 'dataModelService', function($scope, $rootScope, $route, dataModelService) {
-                                 $scope.dataModelService = dataModelService;
-                                 
-                                 $scope.change = function() {
-                                     console.log("saving state: ");
-                                     $rootScope.$broadcast('savestate');
-                                 };
+    taskMatrixApp.controller('taskMatrixCtrl', ['$scope', '$rootScope', '$route', 'dataModelService', function($scope, $rootScope, $route, dataModelService) {
+        $scope.dataModelService = dataModelService;
 
-                                 $scope.$on(
-                                     "$routeChangeSuccess",
-                                     function( $currentRoute, $previousRoute ){
-                                         console.log("restoring state");
-                                         $rootScope.$broadcast('restorestate');
-                                     }
-                                 );
-                                 
-                                 $scope.addTask = function(destinationCategory) {
-                                     destinationCategory.tasks.list.push({description: "", done: false});
-                                     $rootScope.$broadcast('savestate');
-                                 };
+        $scope.change = function() {
+            $rootScope.$broadcast('savestate');
+        };
 
-                                 $scope.addTaskAfterIndex = function(destinationCategory, index) {
-                                     destinationCategory.tasks.list.splice(index + 1, 0, {description: "", done: false});
-                                     $rootScope.$broadcast('savestate');
-                                 };
-                                 
-                                 $scope.deleteTask = function(destinationCategory, index) {
-                                     destinationCategory.tasks.list.splice(index, 1);
+        $scope.$on("$routeChangeSuccess", function( $currentRoute, $previousRoute ) {
+            $rootScope.$broadcast('restorestate');
+        }
+                  );
 
-                                     var target;
+        $scope.addTask = function(destinationCategory) {
+            destinationCategory.tasks.list.push({description: "", done: false});
+            $rootScope.$broadcast('savestate');
+        };
 
-                                     if (index == destinationCategory.tasks.list.length && index > 0) {
-                                         target = index - 1;
-                                     } else {
-                                         target = index;
-                                     }
+        $scope.addTaskAfterIndex = function(destinationCategory, index) {
+            destinationCategory.tasks.list.splice(index + 1, 0, {description: "", done: false});
+            $rootScope.$broadcast('savestate');
+        };
 
-                                     $scope.focusTask(destinationCategory, target);
+        $scope.deleteTask = function(destinationCategory, index) {
+            destinationCategory.tasks.list.splice(index, 1);
 
-                                     $rootScope.$broadcast('savestate');
-                                 };
+            var target;
 
-                                 $scope.focusTask = function(category, index) {
-                                     if (category.tasks.list.length > index) {
-                                         setTimeout(function() {
-                                             $("#" + category.description + "-" + index).focus();
-                                         }, 0);
-                                     }
-                                 };
+            if (index == destinationCategory.tasks.list.length && index > 0) {
+                target = index - 1;
+            } else {
+                target = index;
+            }
 
-                                 $scope.keypress = function($event) {
-                                     // console.log('key: ' + $event);
-                                     // $event.preventDefault();
-                                     var isHandledHere = true;
-                                     if ($event.altKey) {
-                                         switch($event.keyCode) {
-                                         case 78: // N
-                                             
-                                             break;
-                                         default:
-                                             isHandledHere = false;
-                                         }
-                                     } else
-                                         isHandledHere = false;
+            $scope.focusTask(destinationCategory, target);
 
-                                     if (isHandledHere)
-                                         $event.preventDefault();
-                                 };
+            $rootScope.$broadcast('savestate');
+        };
 
-                                 $scope.taskKeypress = function($event, category, index) {
-                                     //console.log('key-task: ' + $event);
-                                     var isHandledHere = true;
-                                     if ($event.ctrlKey) {
-                                         switch($event.keyCode) {
-                                         case 45: // Insert
-                                             $scope.addTask(category);
-                                             break;
-                                         case 8: // Backspace
-                                         case 46: // Delete
-                                         case 13: // Enter/Return
-                                             $scope.deleteTask(category, index);
-                                             break;
-                                         default:
-                                             isHandledHere = false;
-                                         }
-                                     } else if ($event.keyCode == 13) { // Enter/Return
-                                         $scope.addTaskAfterIndex(category, index);
-                                     } else
-                                         isHandledHere = false;
+        $scope.focusTask = function(category, index) {
+            if (category.tasks.list.length > index) {
+                setTimeout(function() {
+                    $("#" + category.description + "-" + index).focus();
+                }, 0);
+            }
+        };
 
-                                     if (isHandledHere)
-                                         $event.preventDefault();
-                                 };
-                             }
-                             ]
-                            );
+        $scope.keypress = function($event) {
+            // console.log('key: ' + $event);
+            // $event.preventDefault();
+            var isHandledHere = true;
+            if ($event.altKey) {
+                switch($event.keyCode) {
+                case 78: // N
+                    
+                    break;
+                default:
+                    isHandledHere = false;
+                }
+            } else
+                isHandledHere = false;
+
+            if (isHandledHere)
+                $event.preventDefault();
+        };
+
+        $scope.taskKeypress = function($event, category, index) {
+            //console.log('key-task: ' + $event);
+            var isHandledHere = true;
+            if ($event.ctrlKey) {
+                switch($event.keyCode) {
+                case 45: // Insert
+                    $scope.addTask(category);
+                    break;
+                case 8: // Backspace
+                case 46: // Delete
+                case 13: // Enter/Return
+                    $scope.deleteTask(category, index);
+                    break;
+                default:
+                    isHandledHere = false;
+                }
+            } else if ($event.keyCode == 13) { // Enter/Return
+                $scope.addTaskAfterIndex(category, index);
+            } else
+                isHandledHere = false;
+
+            if (isHandledHere)
+                $event.preventDefault();
+        };
+    }]);
 
     taskMatrixApp.directive('taskCategory', function() {
         return {
