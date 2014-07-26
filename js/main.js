@@ -24,13 +24,6 @@ $(function() {
 
     resizeSubBlocks();
 
-    // Handle keystroke shortcuts
-    //$("body").keypress(function (event) {
-    //    
-    //});
-    
-
-
     // Bootstrap Angular
     var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute']);
 
