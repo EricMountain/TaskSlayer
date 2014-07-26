@@ -130,9 +130,19 @@ $(function() {
                                  $scope.deleteTask = function(destinationCategory, index) {
                                      destinationCategory.tasks.list.splice(index, 1);
 
-                                     setTimeout(function() {
-                                         $("#" + destinationCategory.description + "-" + index).focus();
-                                     }, 0);
+                                     if (destinationCategory.tasks.list.length > 0) {
+                                         setTimeout(function() {
+                                             var target;
+
+                                             if (index == destinationCategory.tasks.list.length && index > 0) {
+                                                 target = index - 1;
+                                             } else {
+                                                 target = index;
+                                             }
+
+                                             $("#" + destinationCategory.description + "-" + target).focus();
+                                         }, 0);
+                                     }
 
                                      $rootScope.$broadcast('savestate');
                                  };
@@ -140,6 +150,22 @@ $(function() {
                                  $scope.keypress = function($event) {
                                      // console.log('key: ' + $event);
                                      // $event.preventDefault();
+                                     var isHandledHere = true;
+                                     if ($event.altKey) {
+                                         switch($event.keyCode) {
+                                         case 78: // N
+
+                                             break;
+                                         default:
+                                             isHandledHere = false;
+                                         }
+                                     } else if ($event.keyCode == 13) { // Enter/Return
+                                         $scope.addTaskAfterIndex(category, index);
+                                     } else
+                                         isHandledHere = false;
+
+                                     if (isHandledHere)
+                                         $event.preventDefault();
                                  };
 
                                  $scope.taskKeypress = function($event, category, index) {
@@ -154,14 +180,13 @@ $(function() {
                                          case 46: // Delete
                                          case 13: // Enter/Return
                                              $scope.deleteTask(category, index);
-                                             // FIXME - need to focus on item above if it was last, or same index o/w, or none if none left
                                              break;
                                          default:
                                              isHandledHere = false;
                                          }
                                      } else if ($event.keyCode == 13) { // Enter/Return
                                          $scope.addTaskAfterIndex(category, index);
-                                     } else 
+                                     } else
                                          isHandledHere = false;
 
                                      if (isHandledHere)
