@@ -128,8 +128,12 @@ $(function() {
                                  };
                                  
                                  $scope.deleteTask = function(destinationCategory, index) {
-                                     console.log("delete called");
                                      destinationCategory.tasks.list.splice(index, 1);
+
+                                     setTimeout(function() {
+                                         $("#" + destinationCategory.description + "-" + index).focus();
+                                     }, 0);
+
                                      $rootScope.$broadcast('savestate');
                                  };
 
