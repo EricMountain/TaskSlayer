@@ -130,21 +130,25 @@ $(function() {
                                  $scope.deleteTask = function(destinationCategory, index) {
                                      destinationCategory.tasks.list.splice(index, 1);
 
-                                     if (destinationCategory.tasks.list.length > 0) {
-                                         setTimeout(function() {
-                                             var target;
+                                     var target;
 
-                                             if (index == destinationCategory.tasks.list.length && index > 0) {
-                                                 target = index - 1;
-                                             } else {
-                                                 target = index;
-                                             }
-
-                                             $("#" + destinationCategory.description + "-" + target).focus();
-                                         }, 0);
+                                     if (index == destinationCategory.tasks.list.length && index > 0) {
+                                         target = index - 1;
+                                     } else {
+                                         target = index;
                                      }
 
+                                     $scope.focusTask(destinationCategory, target);
+
                                      $rootScope.$broadcast('savestate');
+                                 };
+
+                                 $scope.focusTask = function(category, index) {
+                                     if (category.tasks.list.length > index) {
+                                         setTimeout(function() {
+                                             $("#" + category.description + "-" + index).focus();
+                                         }, 0);
+                                     }
                                  };
 
                                  $scope.keypress = function($event) {
@@ -154,7 +158,7 @@ $(function() {
                                      if ($event.altKey) {
                                          switch($event.keyCode) {
                                          case 78: // N
-
+                                             
                                              break;
                                          default:
                                              isHandledHere = false;
