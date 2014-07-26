@@ -194,7 +194,6 @@ $(function() {
 
             timer = setTimeout(function() {
                 element[0].focus();
-                element[0].select();
             }, 0);
         }
     });
