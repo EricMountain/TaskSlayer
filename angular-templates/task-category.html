@@ -1,4 +1,4 @@
-<span class="title">{{title}}</span> <button class="button" ng-click="addTask({category: category})">✚</button>
+<span class="title">{{category.description}}</span> <button class="button" ng-click="addTask({category: category})">✚</button>
 <div class="task-list">
   <table style="width: 100%">
     <tr ng-repeat="task in category.tasks.list">
@@ -6,7 +6,7 @@
         <button class="button not-done" ng-click="deleteTask({category: category, index: $index})">✓</button>
       </td>
       <td style="width: 100%">
-        <input class="task" type="text" ng-model="category.tasks.list[$index].description" ng-change="change()" initial-focus placeholder="Slave, stop dawdling!" ng-keydown="taskKeypress({event: $event, category: category, index: $index})"></input>
+        <input class="task" type="text" id="{{category.description}}" ng-model="category.tasks.list[$index].description" ng-change="change()" initial-focus placeholder="Slave, stop dawdling!" ng-keydown="taskKeypress({event: $event, category: category, index: $index})"></input>
       </td>
     </tr>
   </table>
