@@ -32,7 +32,7 @@ $(function() {
 
 
     // Bootstrap Angular
-    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute', 'ui.utils']);
+    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute']);
 
     taskMatrixApp.factory('dataModelService', ['$rootScope', function ($rootScope) {
 
@@ -121,6 +121,11 @@ $(function() {
                                      destinationCategory.tasks.list.push({description: "", done: false});
                                      $rootScope.$broadcast('savestate');
                                  };
+
+                                 $scope.addTaskAfterIndex = function(destinationCategory, index) {
+                                     destinationCategory.tasks.list.splice(index + 1, 0, {description: "", done: false});
+                                     $rootScope.$broadcast('savestate');
+                                 };
                                  
                                  $scope.deleteTask = function(destinationCategory, index) {
                                      console.log("delete called");
@@ -131,24 +136,33 @@ $(function() {
                                  $scope.keypress = function($event) {
                                      // console.log('key: ' + $event);
                                      // $event.preventDefault();
-                                     return false;
                                  };
 
-                                 $scope.taskKeypress = function($event) {
-                                     console.log('key-task: ' + $event);
-                                     $event.preventDefault();
-                                     return false;
+                                 $scope.taskKeypress = function($event, category, index) {
+                                     //console.log('key-task: ' + $event);
+                                     var isHandledHere = true;
+                                     if ($event.ctrlKey) {
+                                         switch($event.keyCode) {
+                                         case 45: // Insert
+                                             $scope.addTask(category);
+                                             break;
+                                         case 8: // Backspace
+                                         case 46: // Delete
+                                         case 13: // Enter/Return
+                                             $scope.deleteTask(category, index);
+                                             // FIXME - need to focus on item above if it was last, or same index o/w, or none if none left
+                                             break;
+                                         default:
+                                             isHandledHere = false;
+                                         }
+                                     } else if ($event.keyCode == 13) { // Enter/Return
+                                         $scope.addTaskAfterIndex(category, index);
+                                     } else 
+                                         isHandledHere = false;
+
+                                     if (isHandledHere)
+                                         $event.preventDefault();
                                  };
-
-                                 // $scope.keypressCallback = function($event) {
-                                 //     alert('top');
-                                 //     $event.preventDefault();
-                                 // };
-
-                                 // $scope.keypressCallback2 = function($event) {
-                                 //     alert('task');
-                                 //     $event.preventDefault();
-                                 // };
                              }
                              ]
                             );
