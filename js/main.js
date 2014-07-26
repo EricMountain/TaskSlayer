@@ -102,6 +102,7 @@ $(function() {
 
     taskMatrixApp.controller('taskMatrixCtrl', ['$scope', '$rootScope', '$route', 'dataModelService', function($scope, $rootScope, $route, dataModelService) {
         $scope.dataModelService = dataModelService;
+        $scope.categories = dataModelService.model.taskCategories;
 
         $scope.change = function() {
             $rootScope.$broadcast('savestate');
@@ -109,8 +110,10 @@ $(function() {
 
         $scope.$on("$routeChangeSuccess", function( $currentRoute, $previousRoute ) {
             $rootScope.$broadcast('restorestate');
-        }
-                  );
+
+            // Update shortcuts
+            $scope.categories = dataModelService.model.taskCategories;
+        });
 
         $scope.addTask = function(destinationCategory) {
             destinationCategory.tasks.list.push({description: "", done: false});
@@ -146,14 +149,29 @@ $(function() {
             }
         };
 
+        $scope.focusCategory = function(category) {
+            if (category.tasks.list.length == 0)
+                $scope.addTask(category);
+            else
+                $scope.focusTask(category, 0);
+        }
+
         $scope.keypress = function($event) {
-            // console.log('key: ' + $event);
-            // $event.preventDefault();
             var isHandledHere = true;
+
             if ($event.altKey) {
                 switch($event.keyCode) {
                 case 78: // N
-                    
+                    $scope.focusCategory($scope.categories.urgentImportant);
+                    break;
+                case 83: // S
+                    $scope.focusCategory($scope.categories.important);
+                    break;
+                case 68: // D
+                    $scope.focusCategory($scope.categories.urgent);
+                    break;
+                case 87: // W
+                    $scope.focusCategory($scope.categories.waste);
                     break;
                 default:
                     isHandledHere = false;
@@ -166,8 +184,8 @@ $(function() {
         };
 
         $scope.taskKeypress = function($event, category, index) {
-            //console.log('key-task: ' + $event);
             var isHandledHere = true;
+
             if ($event.ctrlKey) {
                 switch($event.keyCode) {
                 case 45: // Insert
