@@ -159,8 +159,6 @@ $(function() {
                                          default:
                                              isHandledHere = false;
                                          }
-                                     } else if ($event.keyCode == 13) { // Enter/Return
-                                         $scope.addTaskAfterIndex(category, index);
                                      } else
                                          isHandledHere = false;
 
