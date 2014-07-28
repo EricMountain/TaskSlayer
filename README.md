@@ -17,6 +17,19 @@ http://localhost:5984/_utils/verify_install.html
 Create a DB
 
 
+Enable CORS
+http://wiki.apache.org/couchdb/CORS
+
+
+===
+[httpd]
+enable_cors = true
+
+[cors]
+origins = http://localhost
+methods = GET, POST, PUT, DELETE
+===
+
 
 Based on:
 

@@ -25,9 +25,9 @@ $(function() {
     resizeSubBlocks();
 
     // Bootstrap Angular
-    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute', 'ngAnimate', 'localstorage']);
+    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage']);
 
-    taskMatrixApp.factory('dataModelService', ['$rootScope', 'localstorage', function ($rootScope, localstorage) {
+    taskMatrixApp.factory('dataModelService', ['$rootScope', 'datastorage', function ($rootScope, datastorage) {
 
         var service = {
 
@@ -35,6 +35,8 @@ $(function() {
 
             InitModel: function () {
                 service.model = {
+                    _id: "TaskMatrixData",
+                    version: 1,
                     taskCategories: {
                         urgentImportant: {
                             description: "Now",
@@ -66,17 +68,23 @@ $(function() {
 
             SaveState: function () {
                 //localStorage.storageService = angular.toJson(service.model);
-                localstorage.save(angular.toJson(service.model));
+                datastorage.save(service.model);
                 console.log("saved state");
             },
 
             RestoreState: function () {
                 //service.model = angular.fromJson(localStorage.storageService);
-                service.model = angular.fromJson(localstorage.load());
+                service.model = angular.fromJson(datastorage.load("TaskMatrixData", function(data) {service.model = angular.fromJson(data); console.log("callback invoked");}));
                 if (service.model) {
                     console.log("restored state");
                     if (!service.model.taskCategories) {
                         service.InitModel();
+                    }
+                    if (!service.model._id) {
+                        service.model._id = "TaskMatrixData";
+                    }
+                    if (!service.model.version) {
+                        service.model.version = 1;
                     }
                 } else {
                     service.InitModel();
