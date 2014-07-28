@@ -1,5 +1,20 @@
-# Keep Calm as a Service
+# TaskMatrix
 
+## Getting started
+
+### CouchDB setup
+
+pacman -S couchdb
+systemctl enable couchdb
+systemctl start couchdb
+
+
+http://127.0.0.1:5984/_utils/index.html
+
+
+http://localhost:5984/_utils/verify_install.html
+
+Create a DB
 
 
 

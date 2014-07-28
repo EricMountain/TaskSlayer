@@ -25,9 +25,9 @@ $(function() {
     resizeSubBlocks();
 
     // Bootstrap Angular
-    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute', 'ngAnimate']);
+    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute', 'ngAnimate', 'localstorage']);
 
-    taskMatrixApp.factory('dataModelService', ['$rootScope', function ($rootScope) {
+    taskMatrixApp.factory('dataModelService', ['$rootScope', 'localstorage', function ($rootScope, localstorage) {
 
         var service = {
 
@@ -65,12 +65,14 @@ $(function() {
             },
 
             SaveState: function () {
-                localStorage.storageService = angular.toJson(service.model);
+                //localStorage.storageService = angular.toJson(service.model);
+                localstorage.save(angular.toJson(service.model));
                 console.log("saved state");
             },
 
             RestoreState: function () {
-                service.model = angular.fromJson(localStorage.storageService);
+                //service.model = angular.fromJson(localStorage.storageService);
+                service.model = angular.fromJson(localstorage.load());
                 if (service.model) {
                     console.log("restored state");
                     if (!service.model.taskCategories) {
