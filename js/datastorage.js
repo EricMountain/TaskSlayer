@@ -19,7 +19,8 @@
                     var lsData = localstorage.load();
 
                     // check rev and CdB avail here
-                    if (!data) {
+                    if (data === undefined) {
+                        console.log("No data from CouchDB, relying on localStorage");
                         data = lsData;
                     }
                     

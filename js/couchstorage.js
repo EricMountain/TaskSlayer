@@ -28,10 +28,12 @@
                         data._rev = angular.fromJson(responseData).rev;
                         callback(data);
                     })
-                    .error(function(data, status, headers, config) {
+                    .error(function(responseData, status, headers, config) {
                         console.log("error saving to CB");
                         console.log(status);
                         console.log(headers);
+                        // Best effort anyway
+                        callback(data);
                     });
             }
 
@@ -42,9 +44,10 @@
                         callback(angular.fromJson(data));
                     })
                     .error(function(data, status, headers, config) {
-                        console.log("error saving to CB");
+                        console.log("error loading from CB");
                         console.log(status);
                         console.log(headers);
+                        callback(/* No data */);
                     });
             }
 
