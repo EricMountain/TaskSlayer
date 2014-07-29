@@ -74,21 +74,26 @@ $(function() {
 
             RestoreState: function () {
                 //service.model = angular.fromJson(localStorage.storageService);
-                service.model = angular.fromJson(datastorage.load("TaskMatrixData", function(data) {service.model = angular.fromJson(data); console.log("callback invoked");}));
-                if (service.model) {
-                    console.log("restored state");
-                    if (!service.model.taskCategories) {
+                service.model = angular.fromJson(datastorage.load("TaskMatrixData", function(data) {
+                    service.model = angular.fromJson(data);
+                    console.log("callback invoked");
+                    if (service.model) {
+                        console.log("restored state");
+                        if (!service.model.taskCategories) {
+                            service.InitModel();
+                        }
+                        if (!service.model._id) {
+                            service.model._id = "TaskMatrixData";
+                        }
+                        if (!service.model.version) {
+                            service.model.version = 1;
+                        }
+                    } else {
                         service.InitModel();
                     }
-                    if (!service.model._id) {
-                        service.model._id = "TaskMatrixData";
-                    }
-                    if (!service.model.version) {
-                        service.model.version = 1;
-                    }
-                } else {
-                    service.InitModel();
-                }
+
+                    $rootScope.$broadcast("staterestored");
+                }));
             }
         }
 
@@ -108,13 +113,16 @@ $(function() {
         $scope.categories = dataModelService.model.taskCategories;
 
         $scope.change = function() {
+            console.log("change() invoked");
             $rootScope.$broadcast('savestate');
         };
 
         $scope.$on("$routeChangeSuccess", function( $currentRoute, $previousRoute ) {
             $rootScope.$broadcast('restorestate');
+        });
 
-            // Update shortcuts
+        $scope.$on("staterestored", function() {
+            // Update shortcut after state has been restored asynchronously
             $scope.categories = dataModelService.model.taskCategories;
         });
 
