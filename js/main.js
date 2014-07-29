@@ -268,7 +268,7 @@ $(function() {
                 default:
                     isHandledHere = false;
                 }
-            } else {
+            } else if (!$event.ctrlKey && !$event.altKey && !$event.shiftKey) {
                 switch($event.keyCode) {
                 case 13: // Enter/Return
                     $scope.addTaskAfterIndex(category, index);
