@@ -21,7 +21,7 @@
             function isAvailable() {
             }
 
-            function save(data, callback) {
+            function save(data, callback, conflictResolution) {
                 $http.put(defaultUrl + '/' + tasksDb + '/' + data._id, angular.toJson(data))
                     .success(function(responseData, status, headers, config) {
                         console.log("saved to CB");
@@ -32,8 +32,14 @@
                         console.log("error saving to CB");
                         console.log(status);
                         console.log(headers);
-                        // Best effort anyway
-                        callback(data);
+
+                        if (status == 409) { // Conflict
+                            // Reload data and drop the change
+                            conflictResolution();
+                        } else {
+                            // Best effort anyway
+                            callback(data);
+                        }
                     });
             }
 

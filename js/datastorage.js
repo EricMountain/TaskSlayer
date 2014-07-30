@@ -8,10 +8,10 @@
 
         .factory('datastorage', ['localstorage', 'couchstorage', function(localstorage, couchstorage) {
 
-            function save(data, callback) {
+            function save(data, conflictResolution) {
                 //var json = angular.toJson(data);
                 //localstorage.save(json);
-                couchstorage.save(data, function(data) { localstorage.save(data) });
+                couchstorage.save(data, function(data) { localstorage.save(data) }, conflictResolution);
             }
 
             function load(id, callback) {                

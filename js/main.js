@@ -68,13 +68,13 @@ $(function() {
 
             SaveState: function () {
                 //localStorage.storageService = angular.toJson(service.model);
-                datastorage.save(service.model);
+                datastorage.save(service.model, service.RestoreState);
                 console.log("saved state");
             },
 
             RestoreState: function () {
                 //service.model = angular.fromJson(localStorage.storageService);
-                service.model = angular.fromJson(datastorage.load("TaskMatrixData", function(data) {
+                datastorage.load("TaskMatrixData", function(data) {
                     service.model = angular.fromJson(data);
                     console.log("callback invoked");
                     if (service.model) {
@@ -93,7 +93,7 @@ $(function() {
                     }
 
                     $rootScope.$broadcast("staterestored");
-                }));
+                });
             }
         }
 
