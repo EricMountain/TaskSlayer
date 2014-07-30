@@ -67,7 +67,9 @@ $(function() {
                 console.log("saved state");
             },
 
-            RestoreState: function () {
+            RestoreState: function (event, message) {
+                messageArgs = (typeof message === "undefined") ? undefined : {message: message};
+
                 datastorage.load("TaskMatrixData", function(data) {
                     service.model = angular.fromJson(data);
                     console.log("callback invoked");
@@ -86,7 +88,7 @@ $(function() {
                         service.InitModel();
                     }
 
-                    $rootScope.$broadcast("staterestored");
+                    $rootScope.$broadcast("staterestored", messageArgs);
                 });
             }
         }
@@ -102,7 +104,10 @@ $(function() {
             .otherwise({ controller: 'taskMatrixCtrl'});
     }]);
 
-    taskMatrixApp.controller('taskMatrixCtrl', ['$scope', '$rootScope', '$route', 'dataModelService', function($scope, $rootScope, $route, dataModelService) {
+    taskMatrixApp.controller('taskMatrixCtrl', ['$scope', '$rootScope', '$route', '$timeout', 'dataModelService', function($scope, $rootScope, $route, $timeout, dataModelService) {
+        $scope.message = "";
+        $scope.showMessage = false;
+
         $scope.dataModelService = dataModelService;
         $scope.categories = dataModelService.model.taskCategories;
 
@@ -114,9 +119,26 @@ $(function() {
             $rootScope.$broadcast('restorestate');
         });
 
-        $scope.$on("staterestored", function() {
+        $scope.$on("staterestored", function(event, args) {
+            console.log(typeof args);
+            args = (typeof args === "undefined") ? {} : args;
+
             // Update shortcut after state has been restored asynchronously
             $scope.categories = dataModelService.model.taskCategories;
+
+            if (args.message) {
+                console.log(args.message);
+
+                // Let the display stabilise before displaying the message
+                $timeout(function() {
+                    $scope.message = args.message;
+                    $scope.showMessage = true;
+
+                    $timeout(function() {
+                        $scope.showMessage = false;
+                    }, 2500);
+                }, 1000);
+            }
         });
 
         $scope.addTask = function(category, task, persist) {

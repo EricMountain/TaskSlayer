@@ -188,8 +188,50 @@ body {
     color: green;
 }
 
+#alert-box-container {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    border: none;
+}
+
+#alert-box {
+    position: relative;
+    left: -50%;
+    top: -50%;
+    color: white;
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 4px;
+    padding: 2em;
+}
+
 /* ==========================================================================
-   Animations - from https://docs.angularjs.org/guide/animations
+   Animations for static elements
+   From https://docs.angularjs.org/guide/animations
+   ========================================================================== */
+
+.show-hide {
+  padding:10px;
+  border:1px solid black;
+  background:white;
+  opacity: .9;
+}
+
+.show-hide {
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:all linear 0.5s;
+}
+
+.show-hide.ng-hide {
+  opacity:0;
+}
+
+/* ==========================================================================
+   Animations for elements that are added and removed dynamically
+   From https://docs.angularjs.org/guide/animations
    ========================================================================== */
 
 /*
