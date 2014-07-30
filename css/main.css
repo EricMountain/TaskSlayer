@@ -191,7 +191,7 @@ body {
 #alert-box-container {
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 30%;
     border: none;
 }
 
