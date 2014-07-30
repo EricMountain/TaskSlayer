@@ -24,12 +24,12 @@
             function save(data, callback, conflictResolution) {
                 $http.put(defaultUrl + '/' + tasksDb + '/' + data._id, angular.toJson(data))
                     .success(function(responseData, status, headers, config) {
-                        console.log("saved to CB");
+                        console.log("Saved to CB");
                         data._rev = angular.fromJson(responseData).rev;
                         callback(data);
                     })
                     .error(function(responseData, status, headers, config) {
-                        console.log("error saving to CB");
+                        console.log("Error saving to CB");
                         console.log(status);
                         console.log(headers);
 
@@ -46,11 +46,11 @@
             function load(id, callback) {
                 $http.get(defaultUrl + '/' + tasksDb + '/' + id)
                     .success(function(data, status, headers, config) {
-                        console.log("loaded from CB");
+                        console.log("Data loaded from CB");
                         callback(angular.fromJson(data));
                     })
                     .error(function(data, status, headers, config) {
-                        console.log("error loading from CB");
+                        console.log("Error loading from CB");
                         console.log(status);
                         console.log(headers);
                         callback(/* No data */);

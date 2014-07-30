@@ -1,7 +1,3 @@
-// todo - resize dynamically
-// todo - colour selection
-// todo - drag n drop
-// todo - mark done, delete…
 
 $(function() {
 
@@ -67,13 +63,11 @@ $(function() {
             },
 
             SaveState: function () {
-                //localStorage.storageService = angular.toJson(service.model);
                 datastorage.save(service.model, service.RestoreState);
                 console.log("saved state");
             },
 
             RestoreState: function () {
-                //service.model = angular.fromJson(localStorage.storageService);
                 datastorage.load("TaskMatrixData", function(data) {
                     service.model = angular.fromJson(data);
                     console.log("callback invoked");
@@ -113,7 +107,6 @@ $(function() {
         $scope.categories = dataModelService.model.taskCategories;
 
         $scope.change = function() {
-            console.log("change() invoked");
             $rootScope.$broadcast('savestate');
         };
 
@@ -231,7 +224,7 @@ $(function() {
 
         $scope.taskKeypress = function($event, category, index) {
             var isHandledHere = true;
-            console.log("keycode: " + $event.keyCode);
+
             if ($event.altKey && $event.shiftKey) {
                 switch($event.keyCode) {
                 case 78: // N
