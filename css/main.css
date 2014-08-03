@@ -200,7 +200,8 @@ body {
     left: -50%;
     top: -50%;
     color: white;
-    background-color: red;
+	font-weight: bold;
+    background-color: darkred;
     border: 1px solid red;
     border-radius: 4px;
     padding: 2em;
