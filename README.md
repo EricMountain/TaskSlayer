@@ -14,13 +14,12 @@ http://127.0.0.1:5984/_utils/index.html
 
 http://localhost:5984/_utils/verify_install.html
 
-Create a DB
-
+Create a DB called tasks - http://localhost:5984/_utils/
 
 Enable CORS
 http://wiki.apache.org/couchdb/CORS
 
-
+/etc/couchdb/local.ini
 ===
 [httpd]
 enable_cors = true
