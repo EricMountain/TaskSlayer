@@ -13,9 +13,8 @@
             }
 
             function load() {
-                //return angular.fromJson(localStorage.storageService);
 				var json = localStorage.storageService;
-				console.log(json);
+
 				return json;
             }
 
