@@ -56,8 +56,10 @@ $(function() {
     }]);
 
     taskMatrixApp.controller('taskMatrixCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, dataModelService) {
+
         $scope.message = "";
         $scope.showMessage = false;
+
         $scope.dataModelService = dataModelService;
         $scope.categories = dataModelService.model.taskCategories;
 
