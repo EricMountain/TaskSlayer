@@ -37,14 +37,10 @@ $(function() {
             RestoreState: function (event, args) {
                 //messageArgs = (typeof message === "undefined") ? undefined : {message: message};
 
-				console.log(args);
-
                 datastorage.load(args.url, function(json) {
-					console.log(json);
                     data = angular.fromJson(json);
 
-					//upgradeSchema(url, data);
-					service.model = data;
+					service.model = upgradeSchema(args.url, data);
 
                     $rootScope.$broadcast("staterestored", args);
                 });
@@ -73,7 +69,8 @@ $(function() {
         };
 
         $scope.$on("$routeChangeSuccess", function( $currentRoute, $previousRoute ) {
-            $rootScope.$broadcast('restorestate', {url: $location.absUrl()});
+			var loc = $location.absUrl().replace(/[/:]/g, "-");
+            $rootScope.$broadcast('restorestate', {url: loc});
         });
 
         $scope.$on("staterestored", function(event, args) {
