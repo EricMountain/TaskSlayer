@@ -67,7 +67,3 @@
 
 })(window, window.angular);
 
-$(function() {
-
-
-});
