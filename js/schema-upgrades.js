@@ -13,9 +13,6 @@ function upgradeSchema(url, data) {
     if (typeof data === 'undefined') {
         return initModel(url);
     } else {
-
-        console.log("restored state");
-
         if (!data.taskCategories) {
             return initModel(url);
         }

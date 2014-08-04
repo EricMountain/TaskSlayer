@@ -31,7 +31,6 @@ $(function() {
 
             SaveState: function () {
                 datastorage.save(service.model, service.RestoreState);
-                console.log("saved state");
             },
 
             RestoreState: function (event, args) {
