@@ -35,8 +35,6 @@ $(function() {
             },
 
             RestoreState: function (event, args) {
-                //messageArgs = (typeof message === "undefined") ? undefined : {message: message};
-
                 datastorage.load(args.url, function(json) {
                     data = angular.fromJson(json);
 
