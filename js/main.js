@@ -285,5 +285,8 @@ $(function() {
         angular.bootstrap(document, ['taskMatrixApp']);
     });
 
+	// Hide the loading pane...
+	$("#wait-pane-master").css({visibility: "hidden"});
+
 });
 

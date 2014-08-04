@@ -207,6 +207,29 @@ body {
     padding: 2em;
 }
 
+#wait-pane-master {
+	position: fixed;
+	left: 0%;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+}
+
+#wait-pane-container {
+	position: fixed;
+	left: 50%;
+	top: 30%;
+}
+
+#wait-pane {
+    position: relative;
+    left: -50%;
+    top: -50%;
+	font-weight: bold;
+	color: black;
+}
+
 /* ==========================================================================
    Animations for static elements
    From https://docs.angularjs.org/guide/animations
