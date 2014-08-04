@@ -12,8 +12,8 @@
                 couchstorage.save(data, function(data) { localstorage.save(data) }, conflictResolution);
             }
 
-            function load(id, callback) {                
-                couchstorage.load(id, function(data) {
+            function load(url, callback) {                
+                couchstorage.load(getId(url), function(data) {
                     var lsData = localstorage.load();
 
                     if (data === undefined) {

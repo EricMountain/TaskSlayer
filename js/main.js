@@ -29,66 +29,24 @@ $(function() {
 
             model: {},
 
-            InitModel: function () {
-                service.model = {
-                    _id: "TaskMatrixData",
-                    version: 1,
-                    taskCategories: {
-                        urgentImportant: {
-                            description: "Now",
-                            tasks: {
-                                list: []
-                            }
-                        },
-                        urgent: {
-                            description: "Delegate",
-                            tasks: {
-                                list: []
-                            }
-                        },
-                        important: {
-                            description: "Schedule",
-                            tasks: {
-                                list: []
-                            }
-                        },
-                        waste: {
-                            description: "Waste",
-                            tasks: {
-                                list: []
-                            }
-                        }
-                    }
-                };
-            },
-
             SaveState: function () {
                 datastorage.save(service.model, service.RestoreState);
                 console.log("saved state");
             },
 
-            RestoreState: function (event, message) {
-                messageArgs = (typeof message === "undefined") ? undefined : {message: message};
+            RestoreState: function (event, args) {
+                //messageArgs = (typeof message === "undefined") ? undefined : {message: message};
 
-                datastorage.load("TaskMatrixData", function(data) {
-                    service.model = angular.fromJson(data);
-                    console.log("callback invoked");
-                    if (service.model) {
-                        console.log("restored state");
-                        if (!service.model.taskCategories) {
-                            service.InitModel();
-                        }
-                        if (!service.model._id) {
-                            service.model._id = "TaskMatrixData";
-                        }
-                        if (!service.model.version) {
-                            service.model.version = 1;
-                        }
-                    } else {
-                        service.InitModel();
-                    }
+				console.log(args);
 
-                    $rootScope.$broadcast("staterestored", messageArgs);
+                datastorage.load(args.url, function(json) {
+					console.log(json);
+                    data = angular.fromJson(json);
+
+					//upgradeSchema(url, data);
+					service.model = data;
+
+                    $rootScope.$broadcast("staterestored", args);
                 });
             }
         }
@@ -104,10 +62,9 @@ $(function() {
             .otherwise({ controller: 'taskMatrixCtrl'});
     }]);
 
-    taskMatrixApp.controller('taskMatrixCtrl', ['$scope', '$rootScope', '$route', '$timeout', 'dataModelService', function($scope, $rootScope, $route, $timeout, dataModelService) {
+    taskMatrixApp.controller('taskMatrixCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, dataModelService) {
         $scope.message = "";
         $scope.showMessage = false;
-
         $scope.dataModelService = dataModelService;
         $scope.categories = dataModelService.model.taskCategories;
 
@@ -116,19 +73,16 @@ $(function() {
         };
 
         $scope.$on("$routeChangeSuccess", function( $currentRoute, $previousRoute ) {
-            $rootScope.$broadcast('restorestate');
+            $rootScope.$broadcast('restorestate', {url: $location.absUrl()});
         });
 
         $scope.$on("staterestored", function(event, args) {
-            console.log(typeof args);
             args = (typeof args === "undefined") ? {} : args;
 
             // Update shortcut after state has been restored asynchronously
             $scope.categories = dataModelService.model.taskCategories;
 
             if (args.message) {
-                console.log(args.message);
-
                 // Let the display stabilise before displaying the message
                 $timeout(function() {
                     $scope.message = args.message;
