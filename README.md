@@ -1,95 +1,72 @@
-# TaskMatrix
+# Task Slayer
+
+No frills, straight to the point [Eisenhower Matrix](http://en.wikipedia.org/wiki/Time_management#The_Eisenhower_Method) for task and priority management.
+
+Webapp relying on browsers' HTML5 local storage, and optionally a local [CouchDB](http://couchdb.apache.org/) instance.
+
 
 ## Getting started
 
-### CouchDB setup
+### Setup CouchDB (optional)
 
-pacman -S couchdb
-systemctl enable couchdb
-systemctl start couchdb
+#### Install CouchDB
 
+See [CouchDB docs](http://docs.couchdb.org/en/latest/install/index.html).
 
-http://127.0.0.1:5984/_utils/index.html
+e.g. on Arch Linux:
+* pacman -S couchdb
+* systemctl enable couchdb
+* systemctl start couchdb
 
+#### [Enable CORS](http://wiki.apache.org/couchdb/CORS)
 
-http://localhost:5984/_utils/verify_install.html
+Edit the CouchDB local.ini file, e.g. /etc/couchdb/local.ini
 
-Create a DB called tasks - http://localhost:5984/_utils/
-
-Enable CORS
-http://wiki.apache.org/couchdb/CORS
-
-/etc/couchdb/local.ini
-===
 [httpd]
+...
 enable_cors = true
+...
 
 [cors]
 origins = http://localhost
 methods = GET, POST, PUT, DELETE
-===
 
+#### Create a database
 
-Based on:
+Create a DB called tasks: http://localhost:5984/_utils/
 
-# [HTML5 Boilerplate](http://html5boilerplate.com)
+### Serve Task Slayer from a web server
 
-HTML5 Boilerplate is a professional front-end template for building fast,
-robust, and adaptable web apps or sites.
+Make the Task Slayer source files available from a web server, e.g. nginx:
 
-This project is the product of many years of iterative development and combined
-community knowledge. It does not impose a specific development philosophy or
-framework, so you're free to architect your code in the way that you want.
+```
+    server {
 
-* Source: [https://github.com/h5bp/html5-boilerplate](https://github.com/h5bp/html5-boilerplate)
-* Homepage: [http://html5boilerplate.com](http://html5boilerplate.com)
-* Twitter: [@h5bp](http://twitter.com/h5bp)
+        ...
 
+        location /tasks {
+             alias  /srv/www/whatever/TaskSlayer;
+             index  index.html;
+        }
+```
 
-## Quick start
+### Using Task Slayer
 
-Choose one of the following options:
+Navigate to the TaskSlayer URL, e.g. http://localhost/tasks.
 
-1. Download the latest stable release from
-   [html5boilerplate.com](http://html5boilerplate.com/) or a custom build from
-   [Initializr](http://www.initializr.com).
-2. Clone the git repo — `git clone
-   https://github.com/h5bp/html5-boilerplate.git` - and checkout the tagged
-   release you'd like to use.
+#### Keyboard shortcuts:
 
+* Alt-N/S/D/W: Goto Now/Schedule/Delegat/Waste category.
+* Alt-Shift-N/S/D/W: Move current task to another category.
+* Enter: Create new task.
+* Ctrl-Enter, Ctrl-Del: Mark task done.
+* ...
 
-## Features
+## Credits
 
-* HTML5 ready. Use the new elements with confidence.
-* Cross-browser compatible (Chrome, Opera, Safari, Firefox 3.6+, IE6+).
-* Designed with progressive enhancement in mind.
-* Includes [Normalize.css](http://necolas.github.com/normalize.css/) for CSS
-  normalizations and common bug fixes.
-* The latest [jQuery](http://jquery.com/) via CDN, with a local fallback.
-* The latest [Modernizr](http://modernizr.com/) build for feature detection.
-* IE-specific classes for easier cross-browser control.
-* Placeholder CSS Media Queries.
-* Useful CSS helpers.
-* Default print CSS, performance optimized.
-* Protection against any stray `console.log` causing JavaScript errors in
-  IE6/7.
-* An optimized Google Analytics snippet.
-* Apache server caching, compression, and other configuration defaults for
-  Grade-A performance.
-* Cross-domain Ajax and Flash.
-* "Delete-key friendly." Easy to strip out parts you don't need.
-* Extensive inline and accompanying documentation.
+Task Slayer is built on top of the following:
 
-
-## Documentation
-
-Take a look at the [documentation table of contents](doc/TOC.md). This
-documentation is bundled with the project, which makes it readily available for
-offline reading and provides a useful starting point for any documentation you
-want to write about your project.
-
-
-## Contributing
-
-Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Hundreds of
-developers have helped make the HTML5 Boilerplate what it is today.
+- [HTML5 Boilerplate](http://html5boilerplate.com)
+- [AngularJS](https://angularjs.org/)
+- [CouchDB](http://couchdb.apache.org/)
+- [jQuery](http://jquery.com/)
