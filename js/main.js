@@ -27,6 +27,8 @@ $(function() {
 
         var service = {
 
+			keyBase: undefined,
+
             model: {},
 
             SaveState: function () {
@@ -34,10 +36,13 @@ $(function() {
             },
 
             RestoreState: function (event, args) {
-                datastorage.load(args.url, function(json) {
+				if (typeof keyBase === 'undefined')
+					keyBase = "TaskMatrixData-" + args.location;
+
+                datastorage.load(keyBase, function(json) {
                     data = angular.fromJson(json);
 
-					service.model = upgradeSchema(args.url, data);
+					service.model = upgradeSchema(keyBase, data);
 
                     $rootScope.$broadcast("staterestored", args);
                 });
@@ -69,7 +74,7 @@ $(function() {
 
         $scope.$on("$routeChangeSuccess", function( $currentRoute, $previousRoute ) {
 			var loc = $location.absUrl().replace(/[/:]/g, "-");
-            $rootScope.$broadcast('restorestate', {url: loc});
+            $rootScope.$broadcast('restorestate', {location: loc});
         });
 
         $scope.$on("staterestored", function(event, args) {
@@ -78,6 +83,8 @@ $(function() {
             // Update shortcut after state has been restored asynchronously
             $scope.categories = dataModelService.model.taskCategories;
 
+			console.log("State restored event");
+			console.log(args);
             if (args.message) {
                 // Let the display stabilise before displaying the message
                 $timeout(function() {

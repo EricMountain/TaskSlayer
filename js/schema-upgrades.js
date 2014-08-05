@@ -4,17 +4,17 @@ function latestVersion() {
 	return 7;
 }
 
-function getId(url) {
-	return "TaskMatrixData-" + url;
-}
+//function getId(url) {
+//	return "TaskMatrixData-" + url;
+//}
 
-function upgradeSchema(url, data) {
+function upgradeSchema(baseKey, data) {
 
     if (typeof data === 'undefined') {
-        return initModel(url);
+        return initModel(baseKey);
     } else {
         if (!data.taskCategories) {
-            return initModel(url);
+            return initModel(baseKey);
         }
 
 		switch(data.version) {
@@ -24,7 +24,7 @@ function upgradeSchema(url, data) {
 		case 4:
 		case 5:
 		case 6:
-			data._id = getId(url);
+			data._id = baseKey;
 		default:
 			data.version = latestVersion();
 		}
@@ -33,9 +33,9 @@ function upgradeSchema(url, data) {
     }
 }
 
-function initModel(url) {
+function initModel(baseKey) {
     return {
-        _id: getId(url),
+        _id: baseKey,
 
         version: latestVersion(),
 

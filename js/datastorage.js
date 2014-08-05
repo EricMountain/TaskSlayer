@@ -12,15 +12,15 @@
                 couchstorage.save(data, function(data) { localstorage.save(data) }, conflictResolution);
             }
 
-            function load(url, callback) {                
-                couchstorage.load(getId(url), function(data) {
+            function load(keyBase, callback) {
+                couchstorage.load(keyBase, function(data) {
                     var lsData = localstorage.load();
 
                     if (data === undefined) {
                         console.log("No data from CouchDB, relying on localStorage");
                         data = lsData;
                     }
-                    
+
                     callback(data);
                 });
             }

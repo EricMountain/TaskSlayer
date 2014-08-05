@@ -36,7 +36,7 @@
                         if (status == 409) { // Conflict
                             // Reload data and drop the change
                             conflictResolution(undefined,
-                                               "Conflict detected on save.  Data reloaded and change discarded");
+                                               {message: "Conflict detected on save.  Data reloaded and change discarded"});
                         } else {
                             // Best effort anyway
                             callback(data);
