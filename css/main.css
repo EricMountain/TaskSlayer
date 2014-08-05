@@ -193,7 +193,6 @@ body {
     left: 50%;
     top: 30%;
     border: none;
-	/*box-shadow: 5px 5px 5px black;*/
 }
 
 #alert-box {
@@ -206,6 +205,7 @@ body {
     border: 1px solid darkred;
     border-radius: 4px;
     padding: 2em;
+	box-shadow: 5px 5px 5px black;
 }
 
 #wait-pane-master {
