@@ -39,7 +39,7 @@ Create a DB called tasks: http://localhost:5984/_utils/
 
 Make the Task Slayer source files available from a web server, e.g. nginx:
 
-```
+```Nginx
     server {
 
         ...
