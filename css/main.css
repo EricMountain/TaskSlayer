@@ -94,7 +94,7 @@ textarea {
 }
 
 /* ==========================================================================
-   Author's custom styles
+   Task Slayer specifics
    ========================================================================== */
 
 body {
@@ -173,8 +173,6 @@ body {
     color: black;
     background-color: transparent;
     border: none;
-    /*border: 1px solid blue;*/
-    /*font-family: 'Raleway', 'Gill Sans', 'Helvetica', 'sans-serif';*/
 }
 
 
@@ -320,6 +318,9 @@ body {
   to { opacity:0; }
 }
 
+/* ==========================================================================
+   End Task Slayer specifics
+   ========================================================================== */
 
 /* ==========================================================================
    Helper classes
