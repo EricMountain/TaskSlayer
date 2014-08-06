@@ -1,0 +1,226 @@
+/*! Task Slayer | (c) 2014 Eric Mountain | http://github.com/... */
+
+/* ==========================================================================
+   Task Slayer specifics
+   ========================================================================== */
+
+body {
+    background-color: white;
+    color: black;
+    font-size: small;
+}
+
+#main-block {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#urgent-important {
+    float: left;
+}
+
+#important {
+    float: right;
+}
+
+#delegate {
+    float: left;
+}
+
+#waste {
+    float: right;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.now {
+    color: red;
+}
+
+.schedule {
+    color: blue;
+}
+
+.delegate {
+    color: orange;
+}
+
+.waste {
+    color: brown;
+}
+
+.sub-block {
+    width: 49%;
+    /*border: 1px solid black;*/
+    border: none;
+    overflow-y: auto;
+    /*overflow-y: scroll;*/
+    overflow-x: hidden;
+} 
+
+.task-list {
+    /*background-color: lightgrey;*/
+    /*overflow-y: auto;*/
+    /*overflow-y: scroll;*/
+    overflow-x: hidden;
+    /*height: 100%;*/
+    width: 100%;
+
+}
+
+.wf-loading .kc-form-text {
+    visibility: hidden;
+}
+
+.task {
+    width: 100%;    
+    color: black;
+    background-color: transparent;
+    border: none;
+}
+
+
+.button {
+    color: black;
+    background-color: transparent;
+    border: none;
+ }
+
+.not-done {
+    color: green;
+}
+
+#alert-box-container {
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    border: none;
+}
+
+#alert-box {
+    position: relative;
+    left: -50%;
+    top: -50%;
+    color: white;
+	font-weight: bold;
+    background-color: darkred;
+    border: 1px solid darkred;
+    border-radius: 4px;
+    padding: 2em;
+	box-shadow: 5px 5px 5px black;
+}
+
+#wait-pane-master {
+	position: fixed;
+	left: 0%;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+}
+
+#wait-pane-container {
+	position: fixed;
+	left: 50%;
+	top: 30%;
+}
+
+#wait-pane {
+    position: relative;
+    left: -50%;
+    top: -50%;
+	font-weight: bold;
+	color: black;
+}
+
+/* ==========================================================================
+   Animations for static elements
+   From https://docs.angularjs.org/guide/animations
+   ========================================================================== */
+
+.show-hide {
+  padding:10px;
+  border:1px solid black;
+  background:white;
+  opacity: .9;
+}
+
+.show-hide {
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:all linear 0.5s;
+}
+
+.show-hide.ng-hide {
+  opacity:0;
+}
+
+/* ==========================================================================
+   Animations for elements that are added and removed dynamically
+   From https://docs.angularjs.org/guide/animations
+   ========================================================================== */
+
+/*
+  We're using CSS transitions for when
+  the enter and move events are triggered
+  for the element that has the .repeated-item
+  class
+*/
+.repeated-item.ng-enter, .repeated-item.ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.repeated-item.ng-enter.ng-enter-active,
+.repeated-item.ng-move.ng-move-active {
+  opacity:1;
+}
+
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .repeated-item class
+*/
+.repeated-item.ng-leave {
+  -webkit-animation:0.5s my_animation;
+  -moz-animation:0.5s my_animation;
+  -o-animation:0.5s my_animation;
+  animation:0.5s my_animation;
+}
+
+@keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+/*
+  Unfortunately each browser vendor requires
+  its own definition of keyframe animation code...
+*/
+@-webkit-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-moz-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-o-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
