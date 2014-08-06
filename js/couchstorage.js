@@ -1,3 +1,5 @@
+/*! Task Slayer | (c) 2014 Eric Mountain | http://github.com/... */
+
 // CouchDB layer
 
 (function(window, angular, undefined) {

@@ -1,3 +1,5 @@
+/*! Task Slayer | (c) 2014 Eric Mountain | http://github.com/... */
+
 // Data storage layer
 
 (function(window, angular, undefined) {
