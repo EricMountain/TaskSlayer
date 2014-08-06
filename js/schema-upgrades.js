@@ -3,15 +3,10 @@
 // Handle schema upgrades
 
 function latestVersion() {
-	return 7;
+	return 8;
 }
 
-//function getId(url) {
-//	return "TaskMatrixData-" + url;
-//}
-
 function upgradeSchema(baseKey, data) {
-
     if (typeof data === 'undefined') {
         return initModel(baseKey);
     } else {
@@ -26,6 +21,7 @@ function upgradeSchema(baseKey, data) {
 		case 4:
 		case 5:
 		case 6:
+		case 7:
 			data._id = baseKey;
 		default:
 			data.version = latestVersion();

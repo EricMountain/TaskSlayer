@@ -22,9 +22,9 @@ $(function() {
     resizeSubBlocks();
 
     // Bootstrap Angular
-    var taskMatrixApp = angular.module('taskMatrixApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage']);
+    var taskSlayerApp = angular.module('taskSlayerApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage']);
 
-    taskMatrixApp.factory('dataModelService', ['$rootScope', 'datastorage', function ($rootScope, datastorage) {
+    taskSlayerApp.factory('dataModelService', ['$rootScope', 'datastorage', function ($rootScope, datastorage) {
 
         var service = {
 
@@ -38,7 +38,7 @@ $(function() {
 
             RestoreState: function (event, args) {
 				if (typeof keyBase === 'undefined')
-					keyBase = "TaskMatrixData-" + args.location;
+					keyBase = "TaskSlayer-" + args.location;
 
                 datastorage.load(keyBase, function(json) {
                     data = angular.fromJson(json);
@@ -56,12 +56,12 @@ $(function() {
         return service;
     }]);
 
-    taskMatrixApp.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('', { controller: 'taskMatrixCtrl'})
-            .otherwise({ controller: 'taskMatrixCtrl'});
+    taskSlayerApp.config(['$routeProvider', function($routeProvider) {
+        $routeProvider.when('', { controller: 'taskSlayerCtrl'})
+            .otherwise({ controller: 'taskSlayerCtrl'});
     }]);
 
-    taskMatrixApp.controller('taskMatrixCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, dataModelService) {
+    taskSlayerApp.controller('taskSlayerCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, dataModelService) {
 
         $scope.message = "";
         $scope.showMessage = false;
@@ -262,7 +262,7 @@ $(function() {
         };
     }]);
 
-    taskMatrixApp.directive('taskCategory', function() {
+    taskSlayerApp.directive('taskCategory', function() {
         return {
             restrict: 'E',
             scope: {
@@ -277,7 +277,7 @@ $(function() {
         };
     });
 
-    taskMatrixApp.directive('initialFocus', function() {
+    taskSlayerApp.directive('initialFocus', function() {
         var timer;
 
         return function(scope, element, attr) {
@@ -290,7 +290,7 @@ $(function() {
     });
 
     angular.element(document).ready(function() {
-        angular.bootstrap(document, ['taskMatrixApp']);
+        angular.bootstrap(document, ['taskSlayerApp']);
     });
 
 	// Hide the loading pane...
