@@ -3,13 +3,12 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
-
-# THANKS
-
-    <name>
+    Eric Mountain -- Coder
 
 # TECHNOLOGY COLOPHON
 
-    HTML5, CSS3
+    HTML5, CSS3, H5BP, JavaScript
     Normalize.css, jQuery, Modernizr
+    AngularJS
+    CouchDB
+
