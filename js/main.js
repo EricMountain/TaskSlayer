@@ -22,7 +22,7 @@ $(function() {
     resizeSubBlocks();
 
     // Bootstrap Angular
-    var taskSlayerApp = angular.module('taskSlayerApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage']);
+    var taskSlayerApp = angular.module('taskSlayerApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage', 'schema']);
 
     taskSlayerApp.factory('dataModelService', ['$rootScope', 'datastorage', function ($rootScope, datastorage) {
 
@@ -41,9 +41,9 @@ $(function() {
 					keyBase = "TaskSlayer-" + args.location;
 
                 datastorage.load(keyBase, function(json) {
-                    data = angular.fromJson(json);
+                    service.model = angular.fromJson(json);
 
-					service.model = upgradeSchema(keyBase, data);
+					//service.model = upgradeSchema(keyBase, data);
 
                     $rootScope.$broadcast("staterestored", args);
                 });

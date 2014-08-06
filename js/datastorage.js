@@ -8,7 +8,7 @@
 
     angular.module('datastorage', [])
 
-        .factory('datastorage', ['localstorage', 'couchstorage', function(localstorage, couchstorage) {
+        .factory('datastorage', ['localstorage', 'couchstorage', 'schema', function(localstorage, couchstorage, schema) {
 
             function save(data, conflictResolution) {
                 couchstorage.save(data, function(data) { localstorage.save(data) }, conflictResolution);
@@ -22,6 +22,8 @@
                         console.log("No data from CouchDB, relying on localStorage");
                         data = lsData;
                     }
+
+					data = schema.upgrade(keyBase, data);
 
                     callback(data);
                 });
