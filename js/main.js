@@ -120,14 +120,19 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 				task = category.tasks.list.splice(index, 1)[0];
 
 				var target;
+				var delay = 0;
 
 				if (index == category.tasks.list.length && index > 0) {
 					target = index - 1;
 				} else {
 					target = index;
+					// There is a .5" fade-out. If we focus immediately, 
+					// it will be on the item being deleted, so we'll just
+					// lose focus.
+					delay = 550;
 				}
 
-				$scope.focusTask(category, target);
+				$scope.focusTask(category, target, delay);
 
 				if (persist)
 					$rootScope.$broadcast('savestate');
@@ -135,11 +140,13 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 				return task;
 			};
 
-			$scope.focusTask = function(category, index) {
+			$scope.focusTask = function(category, index, delay) {
+				delay = (typeof delay === "undefined") ? 0 : delay;
+
 				if (category.tasks.list.length > index && index >= 0) {
 					setTimeout(function() {
 						$("#" + category.description + "-" + index).focus();
-					}, 0);
+					}, delay);
 				}
 			};
 
