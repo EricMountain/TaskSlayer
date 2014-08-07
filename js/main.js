@@ -2,7 +2,7 @@
 
 define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "app/couchstorage", "app/localstorage", "app/datastorage"], function($) {
 
-	// FIXME wrap in $(function() { ? c.f. https://github.com/requirejs/example-jquery-cdn/blob/master/www/js/app/main.js
+	// FIXME wrap in $(function() { ? c.f. https://github.com/requirejs/example-jquery-cdn/blob/master/www/js/app/main.js (doesn't seem necessary)
 
 //	$(function() {
 		// Handle resizing
