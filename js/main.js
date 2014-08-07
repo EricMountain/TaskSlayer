@@ -126,7 +126,7 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 					target = index - 1;
 				} else {
 					target = index;
-					// There is a .5" fade-out. If we focus immediately, 
+					// There is a .5" fade-out. If we focus immediately,
 					// it will be on the item being deleted, so we'll just
 					// lose focus.
 					delay = 550;
