@@ -8,7 +8,15 @@ requirejs.config({
 		"angular": "//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular",
 		"angular-route": "//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular-route",
 		"angular-animate": "//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular-animate"
-    }
+    },
+	"shim": {
+		'angular-route': {
+			deps: ['angular']
+		},
+		'angular-animate': {
+			deps: ['angular']
+		}
+	}
 });
 
 // Load the main app module to start the app

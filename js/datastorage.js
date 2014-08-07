@@ -2,7 +2,7 @@
 
 // Data storage layer
 
-define(["angular", "./localstorage", "./schema"],
+define(["angular", "./localstorage", "./couchstorage", "./schema"],
 	function() {
 		(function(window, angular, undefined) {
 

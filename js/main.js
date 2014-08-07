@@ -4,7 +4,7 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 
 	// FIXME wrap in $(function() { ? c.f. https://github.com/requirejs/example-jquery-cdn/blob/master/www/js/app/main.js
 
-	$(function() {
+//	$(function() {
 		// Handle resizing
 		function resizeSubBlocks() {
 			var marginPct = 0;
@@ -295,7 +295,7 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 		// Hide the loading pane...
 		$("#wait-pane-master").css({visibility: "hidden"});
 
-	});
+//	});
 
 });
 
