@@ -17,7 +17,6 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 			$(".sub-block").css({"height": subBlockHeight});
 		}
 
-
 		$(window).resize(function() {
 			resizeSubBlocks();
 		});
