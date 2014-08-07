@@ -2,29 +2,32 @@
 
 // LocalStorage layer
 
-(function(window, angular, undefined) {
+define(["angular"],
+	function() {
+		(function(window, angular, undefined) {
 
-    'use strict';
+			'use strict';
 
-    angular.module('localstorage', [])
+			angular.module('localstorage', [])
 
-        .factory('localstorage', ['$http', function($http) {
+				.factory('localstorage', ['$http', function($http) {
 
-            function save(data) {
-                localStorage.storageService = angular.toJson(data);
-            }
+					function save(data) {
+						localStorage.storageService = angular.toJson(data);
+					}
 
-            function load() {
-				var json = localStorage.storageService;
+					function load() {
+						var json = localStorage.storageService;
 
-				return json;
-            }
+						return json;
+					}
 
-            return {
-                save: save,
-                load: load
-            };
-            
-        }]);
+					return {
+						save: save,
+						load: load
+					};
+					
+				}]);
 
-})(window, window.angular);
+		})(window, window.angular);
+	});
