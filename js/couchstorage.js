@@ -16,6 +16,25 @@ define(["angular"],
 					var tasksDb = "tasks";
 					var url;
 
+					var pendingData = undefined;
+					var pendingRev = undefined;
+
+					function deepCopy(object) {
+						if (typeof object === 'undefined')
+							return undefined;
+
+						if (object == null || typeof object != 'object')
+							return object;
+
+						var deepCopyObject = object.constructor();
+						for (var key in object)
+							if (object.hasOwnProperty(key))
+								deepCopyObject[key] = deepCopy(object[key]);
+
+						return deepCopyObject;
+					}
+
+
 					function checkAvailable() {
 					}
 
@@ -25,12 +44,38 @@ define(["angular"],
 					function isAvailable() {
 					}
 
-					function save(data, callback, conflictResolution) {
+					function internalSave(data, newRev, callback, conflictResolution) {
+						if (!(typeof data === 'undefined')) {
+							pendingData = deepCopy(data);
+						}
+
+						if (!(typeof newRev === 'undefined')) {
+							pendingRev = newRev;
+						}
+
+						if (!(typeof pendingData === 'undefined') && !(typeof pendingRev === 'undefined')) {
+							var saveData = pendingData;
+							pendingData = undefined;
+
+							saveData._rev = pendingRev;
+							pendingRev = undefined;
+
+							saveToCouchDB(saveData, callback, conflictResolution);
+						}
+					}
+
+					function saveToCouchDB(data, callback, conflictResolution) {
 						$http.put(defaultUrl + '/' + tasksDb + '/' + data._id, angular.toJson(data))
-							.success(function(responseData, status, headers, config) {
+							.success(function(responseDataJson, status, headers, config) {
 								console.log("Saved to CB");
-								data._rev = angular.fromJson(responseData).rev;
+								// FIXME - need to check callback and conflictResolution are defined
+
+								var responseData = angular.fromJson(responseDataJson)
+								data._rev = responseData.rev;
+
 								callback(data);
+
+								internalSave(undefined, responseData.rev, callback, conflictResolution);
 							})
 							.error(function(responseData, status, headers, config) {
 								console.log("Error saving to CB");
@@ -48,11 +93,17 @@ define(["angular"],
 							});
 					}
 
+					function save(data, callback, conflictResolution) {
+						internalSave(data, undefined, callback, conflictResolution);
+					}
+
 					function load(id, callback) {
 						$http.get(defaultUrl + '/' + tasksDb + '/' + id)
-							.success(function(data, status, headers, config) {
+							.success(function(json, status, headers, config) {
 								console.log("Data loaded from CB");
-								callback(angular.fromJson(data));
+								var data = angular.fromJson(json)
+								callback(data);
+								internalSave(undefined, data._rev);
 							})
 							.error(function(data, status, headers, config) {
 								console.log("Error loading from CB");
