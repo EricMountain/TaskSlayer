@@ -43,10 +43,8 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 					if (typeof keyBase === 'undefined')
 						keyBase = "TaskSlayer-" + args.location;
 
-					datastorage.load(keyBase, function(json) {
-						service.model = angular.fromJson(json);
-
-						//service.model = upgradeSchema(keyBase, data);
+					datastorage.load(keyBase, function(data) {
+						service.model = data;
 
 						$rootScope.$broadcast("staterestored", args);
 					});
@@ -292,9 +290,7 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 			}
 		});
 
-		//angular.element(document).ready(function() {
-			angular.bootstrap(document, ['taskSlayerApp']);
-		//});
+		angular.bootstrap(document, ['taskSlayerApp']);
 
 		// Hide the loading pane...
 		$("#wait-pane-master").css({visibility: "hidden"});
