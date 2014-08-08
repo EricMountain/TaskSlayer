@@ -1,5 +1,5 @@
 <span class="title">{{category.description}}</span> <button class="button" ng-click="addTask({category: category})">✚</button>
-<div class="task-list">
+<div class="task-list" id="task-list-{{category.description}}">
   <table style="width: 100%">
     <tr ng-repeat="task in category.tasks.list" class="repeated-item">
       <td>

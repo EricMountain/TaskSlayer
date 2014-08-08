@@ -1,6 +1,6 @@
 /*! Task Slayer | (c) 2014 Eric Mountain | http://github.com/... */
 
-define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "app/couchstorage", "app/localstorage", "app/datastorage"], function($) {
+define(["jquery", "perfect-scrollbar", "angular", "angular-route", "angular-animate", "app/schema", "app/couchstorage", "app/localstorage", "app/datastorage"], function($) {
 
 	// FIXME wrap in $(function() { ? c.f. https://github.com/requirejs/example-jquery-cdn/blob/master/www/js/app/main.js (doesn't seem necessary)
 
@@ -15,12 +15,15 @@ define(["jquery", "angular", "angular-route", "angular-animate", "app/schema", "
 			// Make sub-blocks half the size of the page
 			var subBlockHeight = usableHeight / 2;
 			$(".sub-block").css({"height": subBlockHeight});
+
+			$('#task-list-Now').perfectScrollbar('update');
 		}
 
 		$(window).resize(function() {
 			resizeSubBlocks();
 		});
 
+	    $('#task-list-Now').perfectScrollbar();
 		resizeSubBlocks();
 
 		// Bootstrap Angular

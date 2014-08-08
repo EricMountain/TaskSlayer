@@ -65,10 +65,13 @@ body {
     /*background-color: lightgrey;*/
     /*overflow-y: auto;*/
     /*overflow-y: scroll;*/
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     /*height: 100%;*/
-    width: 100%;
+    /*width: 100%;*/
 
+    position: 'relative';
+    height: 80%;
+    overflow: hidden;
 }
 
 .wf-loading .kc-form-text {
