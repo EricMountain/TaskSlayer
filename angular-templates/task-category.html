@@ -1,5 +1,6 @@
-<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="50" refresh-on-change="category.tasks.list">
 	<span class="title">{{category.description}}</span> <button class="button" ng-click="addTask({category: category})">✚</button>
+<div class="scroll-block">
+<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="50" refresh-on-change="category.tasks.list">
 
 	<div class="task-list" id="task-list-{{category.description}}">
 		<table style="width: 100%">
@@ -14,3 +15,4 @@
 		</table>
 	</div>
 </perfect-scrollbar>
+</div>
