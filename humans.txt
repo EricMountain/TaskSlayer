@@ -10,5 +10,6 @@
     HTML5, CSS3, H5BP, JavaScript
     Normalize.css, jQuery, Modernizr, RequireJS
     AngularJS
+	perfect-scrollbar, angular-perfect-scrollbar
     CouchDB
 
