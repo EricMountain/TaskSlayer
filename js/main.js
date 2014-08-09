@@ -65,18 +65,6 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
 		}]);
 
 		taskSlayerApp.controller('taskSlayerCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, dataModelService) {
-                    // $scope.someArray = [1, 2, 3];
-
-                    // $scope.addItem = function() {
-					// 	console.log("add item");
-                    //     var arrayLength = $scope.someArray.length;
-                    //     var nextValue = arrayLength > 0 ? $scope.someArray[arrayLength - 1] + 1 : 1;
-                    //     $scope.someArray.push(nextValue);
-                    // };
-
-                    // $scope.removeItem = function() {
-                    //     if ($scope.someArray.length) { $scope.someArray.pop(); }
-                    // };
 
 			$scope.message = "";
 			$scope.showMessage = false;
