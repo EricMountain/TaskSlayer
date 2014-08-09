@@ -64,13 +64,6 @@ body {
 	height: 1.1em;
 }
 
-.scroll-block {
-    width: 99%;
-	height: 90%;
-	overflow: hidden;
-    position: relative;
-} 
-
 .scroller {
 	white-space: nowrap;
 	width: 99%;
