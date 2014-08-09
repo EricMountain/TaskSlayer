@@ -12,15 +12,12 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
 		// Make sub-blocks half the size of the page
 		var subBlockHeight = usableHeight / 2;
 		$(".sub-block").css({"height": subBlockHeight});
-
-		$('#task-list-Now').perfectScrollbar('update');
 	}
 
 	$(window).resize(function() {
 		resizeSubBlocks();
 	});
 
-	$('#task-list-Now').perfectScrollbar();
 	resizeSubBlocks();
 
 	// Bootstrap Angular
@@ -84,8 +81,6 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
 			// Update shortcut after state has been restored asynchronously
 			$scope.categories = dataModelService.model.taskCategories;
 
-			console.log("State restored event");
-			console.log(args);
 			if (args.message) {
 				// Let the display stabilise before displaying the message
 				$timeout(function() {
