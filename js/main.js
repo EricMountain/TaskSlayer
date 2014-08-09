@@ -92,6 +92,11 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
 					}, 2500);
 				}, 1000);
 			}
+
+			// Focus on the 1st task in category Now
+			$timeout(function() {
+				$scope.focusCategory($scope.categories.urgentImportant);
+			}, 0);
 		});
 
 		$scope.addTask = function(category, task, persist) {
