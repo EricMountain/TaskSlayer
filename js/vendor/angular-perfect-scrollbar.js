@@ -1,3 +1,6 @@
+// From https://github.com/itsdrewmiller/angular-perfect-scrollbar
+// Commit 8aaed88f74
+
 angular.module('perfect_scrollbar', []).directive('perfectScrollbar', ['$parse', function($parse) {
   var psOptions = [
     'wheelSpeed', 'wheelPropagation', 'minScrollbarLength', 'useBothWheelAxes',
