@@ -59,20 +59,22 @@ body {
 	overflow: hidden;
 } 
 
+.scroll-none {
+    position: static;
+	height: 1.1em;
+}
+
 .scroll-block {
-    /*width: 49%;*/
-    /*border: 1px solid black;*/
-    /*border: none;*/
+    width: 99%;
+	height: 90%;
 	overflow: hidden;
     position: relative;
-	height: 100%;
-	/*float: left;*/
 } 
 
 .scroller {
 	white-space: nowrap;
-	width: 100%;
-	height: 100%;
+	width: 99%;
+	height: 90%;
     overflow-y: hidden;
     position: relative;
 }
