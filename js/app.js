@@ -8,7 +8,8 @@ requirejs.config({
 		"angular": "//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular",
 		"angular-route": "//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular-route",
 		"angular-animate": "//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular-animate",
-		"perfect-scrollbar": "perfect-scrollbar.with-mousewheel.min"
+		"perfect-scrollbar": "perfect-scrollbar.min",
+		"angular-perfect-scrollbar": "angular-perfect-scrollbar"
     },
 	"shim": {
 		'angular-route': {
@@ -19,6 +20,9 @@ requirejs.config({
 		},
 		'perfect-scrollbar': {
 			deps: ['jquery']
+		},
+		"angular-perfect-scrollbar": {
+			deps: ['perfect-scrollbar', 'angular']
 		}
 	}
 });

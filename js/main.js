@@ -1,6 +1,6 @@
 /*! Task Slayer | (c) 2014 Eric Mountain | http://github.com/... */
 
-define(["jquery", "perfect-scrollbar", "angular", "angular-route", "angular-animate", "app/schema", "app/couchstorage", "app/localstorage", "app/datastorage"], function($) {
+define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "angular-route", "angular-animate", "app/schema", "app/couchstorage", "app/localstorage", "app/datastorage"], function($) {
 
 	// FIXME wrap in $(function() { ? c.f. https://github.com/requirejs/example-jquery-cdn/blob/master/www/js/app/main.js (doesn't seem necessary)
 
@@ -27,7 +27,7 @@ define(["jquery", "perfect-scrollbar", "angular", "angular-route", "angular-anim
 		resizeSubBlocks();
 
 		// Bootstrap Angular
-		var taskSlayerApp = angular.module('taskSlayerApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage', 'schema']);
+        var taskSlayerApp = angular.module('taskSlayerApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage', 'schema', 'perfect_scrollbar']);
 
 		taskSlayerApp.factory('dataModelService', ['$rootScope', 'datastorage', function ($rootScope, datastorage) {
 
@@ -65,6 +65,18 @@ define(["jquery", "perfect-scrollbar", "angular", "angular-route", "angular-anim
 		}]);
 
 		taskSlayerApp.controller('taskSlayerCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, dataModelService) {
+                    // $scope.someArray = [1, 2, 3];
+
+                    // $scope.addItem = function() {
+					// 	console.log("add item");
+                    //     var arrayLength = $scope.someArray.length;
+                    //     var nextValue = arrayLength > 0 ? $scope.someArray[arrayLength - 1] + 1 : 1;
+                    //     $scope.someArray.push(nextValue);
+                    // };
+
+                    // $scope.removeItem = function() {
+                    //     if ($scope.someArray.length) { $scope.someArray.pop(); }
+                    // };
 
 			$scope.message = "";
 			$scope.showMessage = false;
