@@ -56,54 +56,54 @@ body {
     width: 50%;
     /*border: 1px solid black;*/
     border: none;
-	overflow: hidden;
+    overflow: hidden;
 } 
 
 .scroll-none {
     position: static;
-	height: 1.1em;
+    height: 1.1em;
 }
 
 #urgent-important > * > .ps-container .ps-scrollbar-y {
-	background-color: red;
+    background-color: red;
 }
 
 #urgent-important > * > .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
 #urgent-important > * > .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
-	background-color: darkred;
+    background-color: darkred;
 }
 
 #important > * > .ps-container .ps-scrollbar-y {
-	background-color: green;
+    background-color: green;
 }
 
 #important > * > .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
 #important > * > .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
-	background-color: darkgreen;
+    background-color: darkgreen;
 }
 
 #delegate > * > .ps-container .ps-scrollbar-y {
-	background-color: blue;
+    background-color: blue;
 }
 
 #delegate > * > .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
 #delegate > * > .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
-	background-color: darkblue;
+    background-color: darkblue;
 }
 
 #waste > * > .ps-container .ps-scrollbar-y {
-	background-color: brown;
+    background-color: brown;
 }
 
 #waste > * > .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
 #waste > * > .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
-	background-color: darkbrown;
+    background-color: darkbrown;
 }
 
 .scroller {
-	white-space: nowrap;
-	width: 99%;
-	height: 90%;
+    white-space: nowrap;
+    width: 99%;
+    height: 90%;
     overflow-y: hidden;
     position: relative;
 }
@@ -146,35 +146,35 @@ body {
     left: -50%;
     top: -50%;
     color: white;
-	font-weight: bold;
+    font-weight: bold;
     background-color: darkred;
     border: 1px solid darkred;
     border-radius: 4px;
     padding: 2em;
-	box-shadow: 5px 5px 5px black;
+    box-shadow: 5px 5px 5px black;
 }
 
 #wait-pane-master {
-	position: fixed;
-	left: 0%;
-	top: 0%;
-	width: 100%;
-	height: 100%;
-	background-color: white;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: white;
 }
 
 #wait-pane-container {
-	position: fixed;
-	left: 50%;
-	top: 30%;
+    position: fixed;
+    left: 50%;
+    top: 30%;
 }
 
 #wait-pane {
     position: relative;
     left: -50%;
     top: -50%;
-	font-weight: bold;
-	color: black;
+    font-weight: bold;
+    color: black;
 }
 
 /* ==========================================================================

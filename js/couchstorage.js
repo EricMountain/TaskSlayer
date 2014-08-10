@@ -3,123 +3,113 @@
 // CouchDB layer
 
 define(["angular"],
-	function() {
-		(function(window, angular, undefined) {
+    function() {
+        (function(window, angular, undefined) {
 
-			'use strict';
+            'use strict';
 
-			angular.module('couchstorage', [])
+            angular.module('couchstorage', [])
 
-				.factory('couchstorage', ['$http', function($http) {
+                .factory('couchstorage', ['$http', function($http) {
 
-					var defaultUrl = "http://127.0.0.1:5984";
-					var tasksDb = "tasks";
-					var url;
+                    var defaultUrl = "http://127.0.0.1:5984";
+                    var tasksDb = "tasks";
+                    var url;
 
-					var pendingData = undefined;
-					var pendingRev = undefined;
+                    var pendingData = undefined;
+                    var pendingRev = undefined;
 
-					function deepCopy(object) {
-						if (typeof object === 'undefined')
-							return undefined;
+                    function deepCopy(object) {
+                        if (typeof object === 'undefined')
+                            return undefined;
 
-						if (object == null || typeof object != 'object')
-							return object;
+                        if (object == null || typeof object != 'object')
+                            return object;
 
-						var deepCopyObject = object.constructor();
-						for (var key in object)
-							if (object.hasOwnProperty(key))
-								deepCopyObject[key] = deepCopy(object[key]);
+                        var deepCopyObject = object.constructor();
+                        for (var key in object)
+                            if (object.hasOwnProperty(key))
+                                deepCopyObject[key] = deepCopy(object[key]);
 
-						return deepCopyObject;
-					}
+                        return deepCopyObject;
+                    }
 
+                    function internalSave(data, newRev, callback, conflictResolution) {
+                        if (!(typeof data === 'undefined')) {
+                            pendingData = deepCopy(data);
+                        }
 
-					function checkAvailable() {
-					}
+                        if (!(typeof newRev === 'undefined')) {
+                            pendingRev = newRev;
+                        }
 
-					function checkDatabaseExists() {
-					}
+                        if (!(typeof pendingData === 'undefined') && !(typeof pendingRev === 'undefined')) {
+                            var saveData = pendingData;
+                            pendingData = undefined;
 
-					function isAvailable() {
-					}
+                            saveData._rev = pendingRev;
+                            pendingRev = undefined;
 
-					function internalSave(data, newRev, callback, conflictResolution) {
-						if (!(typeof data === 'undefined')) {
-							pendingData = deepCopy(data);
-						}
+                            saveToCouchDB(saveData, callback, conflictResolution);
+                        }
+                    }
 
-						if (!(typeof newRev === 'undefined')) {
-							pendingRev = newRev;
-						}
+                    function saveToCouchDB(data, callback, conflictResolution) {
+                        $http.put(defaultUrl + '/' + tasksDb + '/' + data._id, angular.toJson(data))
+                            .success(function(responseDataJson, status, headers, config) {
+                                console.log("Saved to CB");
+                                // FIXME - need to check callback and conflictResolution are defined
 
-						if (!(typeof pendingData === 'undefined') && !(typeof pendingRev === 'undefined')) {
-							var saveData = pendingData;
-							pendingData = undefined;
+                                var responseData = angular.fromJson(responseDataJson)
+                                data._rev = responseData.rev;
 
-							saveData._rev = pendingRev;
-							pendingRev = undefined;
+                                callback(data);
 
-							saveToCouchDB(saveData, callback, conflictResolution);
-						}
-					}
+                                internalSave(undefined, responseData.rev, callback, conflictResolution);
+                            })
+                            .error(function(responseData, status, headers, config) {
+                                console.log("Error saving to CB");
+                                console.log(status);
+                                console.log(headers);
 
-					function saveToCouchDB(data, callback, conflictResolution) {
-						$http.put(defaultUrl + '/' + tasksDb + '/' + data._id, angular.toJson(data))
-							.success(function(responseDataJson, status, headers, config) {
-								console.log("Saved to CB");
-								// FIXME - need to check callback and conflictResolution are defined
+                                if (status == 409) { // Conflict
+                                    // Reload data and drop the change
+                                    conflictResolution(undefined,
+                                                       {message: "Conflict detected on save.  Data reloaded and change discarded"});
+                                } else {
+                                    // Best effort anyway
+                                    callback(data);
+                                }
+                            });
+                    }
 
-								var responseData = angular.fromJson(responseDataJson)
-								data._rev = responseData.rev;
+                    function save(data, callback, conflictResolution) {
+                        internalSave(data, undefined, callback, conflictResolution);
+                    }
 
-								callback(data);
+                    function load(id, callback) {
+                        $http.get(defaultUrl + '/' + tasksDb + '/' + id)
+                            .success(function(json, status, headers, config) {
+                                console.log("Data loaded from CB");
+                                var data = angular.fromJson(json)
+                                callback(data);
+                                internalSave(undefined, data._rev);
+                            })
+                            .error(function(data, status, headers, config) {
+                                console.log("Error loading from CB");
+                                console.log(status);
+                                console.log(headers);
+                                callback(/* No data */);
+                            });
+                    }
 
-								internalSave(undefined, responseData.rev, callback, conflictResolution);
-							})
-							.error(function(responseData, status, headers, config) {
-								console.log("Error saving to CB");
-								console.log(status);
-								console.log(headers);
+                    return {
+                        save: save,
+                        load: load
+                    };
 
-								if (status == 409) { // Conflict
-									// Reload data and drop the change
-									conflictResolution(undefined,
-													   {message: "Conflict detected on save.  Data reloaded and change discarded"});
-								} else {
-									// Best effort anyway
-									callback(data);
-								}
-							});
-					}
+                }]);
 
-					function save(data, callback, conflictResolution) {
-						internalSave(data, undefined, callback, conflictResolution);
-					}
-
-					function load(id, callback) {
-						$http.get(defaultUrl + '/' + tasksDb + '/' + id)
-							.success(function(json, status, headers, config) {
-								console.log("Data loaded from CB");
-								var data = angular.fromJson(json)
-								callback(data);
-								internalSave(undefined, data._rev);
-							})
-							.error(function(data, status, headers, config) {
-								console.log("Error loading from CB");
-								console.log(status);
-								console.log(headers);
-								callback(/* No data */);
-							});
-					}
-
-					return {
-						save: save,
-						load: load
-					};
-					
-				}]);
-
-		})(window, window.angular);
-	});
+        })(window, window.angular);
+    });
 
