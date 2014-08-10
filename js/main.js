@@ -306,7 +306,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
     // Hide the loading pane...
     $("#wait-pane-master").css({visibility: "hidden"});
 
-    // Ugly, but can't seem to get the scrollable blocks sized correctly until 
+    // Ugly, but can't seem to get the scrollable blocks sized correctly until
     // after the inital load
     setTimeout(function() {
         resizeSubBlocks();
