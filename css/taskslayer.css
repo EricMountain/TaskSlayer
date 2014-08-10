@@ -64,6 +64,42 @@ body {
 	height: 1.1em;
 }
 
+#urgent-important > * > .ps-container .ps-scrollbar-y {
+	background-color: red;
+}
+
+#urgent-important > * > .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
+#urgent-important > * > .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
+	background-color: darkred;
+}
+
+#important > * > .ps-container .ps-scrollbar-y {
+	background-color: green;
+}
+
+#important > * > .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
+#important > * > .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
+	background-color: darkgreen;
+}
+
+#delegate > * > .ps-container .ps-scrollbar-y {
+	background-color: blue;
+}
+
+#delegate > * > .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
+#delegate > * > .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
+	background-color: darkblue;
+}
+
+#waste > * > .ps-container .ps-scrollbar-y {
+	background-color: brown;
+}
+
+#waste > * > .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
+#waste > * > .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
+	background-color: darkbrown;
+}
+
 .scroller {
 	white-space: nowrap;
 	width: 99%;
