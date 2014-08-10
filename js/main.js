@@ -12,13 +12,16 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
         // Make sub-blocks half the size of the page
         var subBlockHeight = usableHeight / 2;
         $(".sub-block").css({"height": subBlockHeight});
+
+        // Make the scrolled areas take up what's left of the sub-blocks
+        var scrollNoneHeight = $(".scroll-none").outerHeight(true);
+        var scrollerHeight = subBlockHeight - scrollNoneHeight;
+        $(".scroller").css({"height": scrollerHeight});
     }
 
     $(window).resize(function() {
         resizeSubBlocks();
     });
-
-    resizeSubBlocks();
 
     // Bootstrap Angular
     var taskSlayerApp = angular.module('taskSlayerApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage', 'schema', 'perfect_scrollbar']);
@@ -298,7 +301,15 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
 
     angular.bootstrap(document, ['taskSlayerApp']);
 
+    resizeSubBlocks();
+
     // Hide the loading pane...
     $("#wait-pane-master").css({visibility: "hidden"});
+
+    // Ugly, but can't seem to get the scrollable blocks sized correctly until 
+    // after the inital load
+    setTimeout(function() {
+        resizeSubBlocks();
+    }, 10);
 
 });
