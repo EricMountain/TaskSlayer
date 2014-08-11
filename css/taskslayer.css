@@ -212,10 +212,10 @@ body {
   class
 */
 .repeated-item.ng-enter, .repeated-item.ng-move {
-  -webkit-transition:0.5s linear all;
-  -moz-transition:0.5s linear all;
-  -o-transition:0.5s linear all;
-  transition:0.5s linear all;
+  -webkit-transition:0.25s linear all;
+  -moz-transition:0.25s linear all;
+  -o-transition:0.25s linear all;
+  transition:0.25s linear all;
   opacity:0;
 }
 
@@ -236,10 +236,10 @@ body {
   that has the .repeated-item class
 */
 .repeated-item.ng-leave {
-  -webkit-animation:0.5s my_animation;
-  -moz-animation:0.5s my_animation;
-  -o-animation:0.5s my_animation;
-  animation:0.5s my_animation;
+  -webkit-animation:0.25s my_animation;
+  -moz-animation:0.25s my_animation;
+  -o-animation:0.25s my_animation;
+  animation:0.25s my_animation;
 }
 
 @keyframes my_animation {

@@ -136,7 +136,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
                 // There is a .5" fade-out. If we focus immediately,
                 // it will be on the item being deleted, so we'll just
                 // lose focus.
-                delay = 650;
+                delay = 350;
             }
 
             if (persist) {
