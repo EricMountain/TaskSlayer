@@ -136,13 +136,14 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
                 // There is a .5" fade-out. If we focus immediately,
                 // it will be on the item being deleted, so we'll just
                 // lose focus.
-                delay = 550;
+                delay = 650;
             }
 
-            $scope.focusTask(category, target, delay);
 
-            if (persist)
+            if (persist) {
                 $rootScope.$broadcast('savestate');
+                $scope.focusTask(category, target, delay);
+            }
 
             return task;
         };
