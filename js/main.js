@@ -153,6 +153,20 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             }
         };
 
+        $scope.moveTaskToOffset = function(category, index, target) {
+            if (target < 0 || target >= category.tasks.list.length)
+                return;
+
+            if (target == index)
+                return;
+
+            category.tasks.list.splice(target, 0, category.tasks.list.splice(index, 1)[0]);
+
+            $rootScope.$broadcast('savestate');
+
+            $scope.focusTask(category, target);
+        }
+
         $scope.moveTask = function(category, index, direction) {
             var target = index + direction;
 
@@ -232,34 +246,53 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
                 default:
                     isHandledHere = false;
                 }
-            } else if ($event.ctrlKey) {
+            } else if ($event.ctrlKey && $event.shiftKey) {
                 switch($event.keyCode) {
-                case 45: // Insert
+                case 45: // Insert - Add task
                     $scope.addTask(category);
                     break;
                 case 8: // Backspace
                 case 46: // Delete
-                case 13: // Enter/Return
+                case 13: // Enter/Return - Mark done
                     $scope.deleteTask(category, index);
                     break;
-                case 38: // Up
+                case 38: // Up - Move task up
                     $scope.moveTask(category, index, -1);
                     break;
-                case 40: // Down
+                case 40: // Down - Move task down
                     $scope.moveTask(category, index, 1);
+                    break;
+                case 36: // Home - Move task to top
+                    $scope.moveTaskToOffset(category, index, 0);
+                    break;
+                case 35: // End - Move task to bottom
+                    $scope.moveTaskToOffset(category, index, category.tasks.list.length - 1);
+                    $scope.focusTask(category, 0);
+                    $scope.focusTask(category, category.tasks.list.length - 1);
+                    break;
+                default:
+                    isHandledHere = false;
+                }
+            } else if ($event.ctrlKey && !$event.shiftKey) {
+                switch($event.keyCode) {
+                case 36: // Home - Go to 1st task
+                    $scope.focusTask(category, 0);
+                    break;
+                case 35: // End - Go to last task
+                    $scope.focusTask(category, category.tasks.list.length - 1);
                     break;
                 default:
                     isHandledHere = false;
                 }
             } else if (!$event.ctrlKey && !$event.altKey) {
                 switch($event.keyCode) {
-                case 13: // Enter/Return
+                case 13: // Enter/Return - Insert task
                     $scope.addTaskAfterIndex(category, index);
                     break;
-                case 38: // Up
+                case 38: // Up - Go up
                     $scope.focusTask(category, index - 1);
                     break;
-                case 40: // Down
+                case 40: // Down - Go down
                     $scope.focusTask(category, index + 1);
                     break;
                 default:
