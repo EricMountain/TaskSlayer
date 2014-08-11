@@ -21,7 +21,7 @@ define(["angular", "./localstorage", "./couchstorage", "./schema"],
                             var lsData = localstorage.load();
 
                             if (data === undefined) {
-                                console.log("No data from CouchDB, relying on localStorage");
+                                console.log("No data from CouchDB, relying on local storage");
                                 data = lsData;
                             }
 
