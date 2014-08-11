@@ -139,7 +139,6 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
                 delay = 650;
             }
 
-
             if (persist) {
                 $rootScope.$broadcast('savestate');
                 $scope.focusTask(category, target, delay);
