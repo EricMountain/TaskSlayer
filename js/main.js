@@ -112,9 +112,13 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
                 $rootScope.$broadcast('savestate');
         };
 
-        $scope.addTaskAfterIndex = function(category, index) {
-            category.tasks.list.splice(index + 1, 0, {description: "", done: false});
+        $scope.addTaskAtIndex = function(category, index) {
+            category.tasks.list.splice(index, 0, {description: "", done: false});
             $rootScope.$broadcast('savestate');
+        };
+
+        $scope.addTaskAfterIndex = function(category, index) {
+            $scope.addTaskAtIndex(category, index + 1);
         };
 
         $scope.deleteTask = function(category, index, persist) {
@@ -248,8 +252,9 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
                 }
             } else if ($event.ctrlKey && $event.shiftKey) {
                 switch($event.keyCode) {
-                case 45: // Insert - Add task
-                    $scope.addTask(category);
+                case 45: // Insert - Add task before current position
+                    var target = index > 0 ? index - 1 : index;
+                    $scope.addTaskAtIndex(category, target);
                     break;
                 case 8: // Backspace
                 case 46: // Delete
@@ -286,7 +291,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
                 }
             } else if (!$event.ctrlKey && !$event.altKey) {
                 switch($event.keyCode) {
-                case 13: // Enter/Return - Insert task
+                case 13: // Enter/Return - Insert task after current position
                     $scope.addTaskAfterIndex(category, index);
                     break;
                 case 38: // Up - Go up
