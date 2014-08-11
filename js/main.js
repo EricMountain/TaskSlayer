@@ -152,7 +152,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             delay = (typeof delay === "undefined") ? 0 : delay;
 
             if (category.tasks.list.length > index && index >= 0) {
-                setTimeout(function() {
+                $timeout(function() {
                     $("#" + category.description + "-" + index).focus();
                 }, delay);
             }
