@@ -16,6 +16,10 @@ define(["angular", "./localstorage", "./couchstorage", "./schema"],
                         couchstorage.save(data, function(data) { localstorage.save(data) }, conflictResolution);
                     }
 
+                    //function savePartial(key, datum) {
+                    //    couchstorage.savePartial(key, datum, function(datum) { localstorage.savePartial(key, datum) });
+                    //}
+
                     function load(keyBase, callback) {
                         couchstorage.load(keyBase, function(data) {
                             var lsData = localstorage.load();
