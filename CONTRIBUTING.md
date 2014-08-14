@@ -1,6 +1,6 @@
-# Contributing to HTML5 Boilerplate
+# Contributing to Task Slayer
 
-♥ [HTML5 Boilerplate](http://html5boilerplate.com) and want to get involved?
+Want to get involved?
 Thanks! There are plenty of ways you can help!
 
 Please take a moment to review this document in order to make the contribution
@@ -14,14 +14,12 @@ patches and features.
 
 ## Using the issue tracker
 
-The [issue tracker](https://github.com/h5bp/html5-boilerplate/issues) is
+The [issue tracker](https://github.com/EricMountain/TaskSlayer/issues) is
 the preferred channel for [bug reports](#bugs), [features requests](#features)
 and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
 
-* Please **do not** use the issue tracker for personal support requests (use
-  [Stack Overflow](http://stackoverflow.com/questions/tagged/html5boilerplate)
-  or IRC).
+* Please **do not** use the issue tracker for personal support requests.
 
 * Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others.
@@ -108,11 +106,11 @@ included in the project:
 
    ```bash
    # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/html5-boilerplate.git
+   git clone https://github.com/<your-username>/TaskSlayer.git
    # Navigate to the newly cloned directory
-   cd html5-boilerplate
+   cd TaskSlayer
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/h5bp/html5-boilerplate.git
+   git remote add upstream https://github.com/EricMountain/TaskSlayer.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:
@@ -152,3 +150,5 @@ included in the project:
 
 **IMPORTANT**: By submitting a patch, you agree to allow the project owners to
 license your work under the the terms of the [MIT License](LICENSE.md).
+
+NB - This is a slightly adapted version of the original H5BP CONTRIBUTING.md.
