@@ -58,8 +58,10 @@ Navigate to the TaskSlayer URL, e.g. http://localhost/tasks.
 
 * Alt-N/S/D/W: Goto Now/Schedule/Delegat/Waste category.
 * Alt-Shift-N/S/D/W: Move current task to another category.
-* Enter: Create new task.
-* Ctrl-Enter, Ctrl-Del: Mark task done.
+* Enter,Ctrl-Shift-Insert: Create new task after/before the current one.
+* Ctrl-Shift-Enter, Ctrl-Shift-Del: Mark task done.
+* Ctrl-Home/End: go to top/bottom of current category.
+* Ctrl-Shift-Home/End: move current task to top/bottom of the category.
 * ...
 
 ## Credits
