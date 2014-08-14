@@ -1,4 +1,4 @@
-/*! Task Slayer | (c) 2014 Eric Mountain | http://github.com/... */
+/*! Task Slayer | (c) 2014 Eric Mountain | https://github.com/EricMountain/TaskSlayer */
 
 define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "angular-route", "angular-animate", "app/schema", "app/couchstorage", "app/localstorage", "app/datastorage"], function($) {
 
