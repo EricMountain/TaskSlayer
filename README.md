@@ -7,6 +7,27 @@ Webapp relying on browsers' HTML5 local storage, and optionally a local [CouchDB
 
 ## Getting started
 
+### Download the code
+
+````Shell
+git clone https://github.com/EricMountain/TaskSlayer.git
+````
+
+### Serve Task Slayer from a web server
+
+Make the Task Slayer source files available from a web server, e.g. nginx:
+
+```Nginx
+    server {
+
+        ...
+
+        location /tasks {
+             alias  /srv/www/whatever/TaskSlayer;
+             index  index.html;
+        }
+```
+
 ### Setup CouchDB (optional)
 
 #### Install CouchDB
@@ -36,21 +57,6 @@ methods = GET, POST, PUT, DELETE
 #### Create a database
 
 Create a DB called tasks: http://localhost:5984/_utils/
-
-### Serve Task Slayer from a web server
-
-Make the Task Slayer source files available from a web server, e.g. nginx:
-
-```Nginx
-    server {
-
-        ...
-
-        location /tasks {
-             alias  /srv/www/whatever/TaskSlayer;
-             index  index.html;
-        }
-```
 
 ### Using Task Slayer
 
