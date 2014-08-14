@@ -18,10 +18,11 @@ e.g. on Arch Linux:
 * systemctl enable couchdb
 * systemctl start couchdb
 
-#### [Enable CORS](http://wiki.apache.org/couchdb/CORS)
+#### Enable [CORS](http://wiki.apache.org/couchdb/CORS)
 
 Edit the CouchDB local.ini file, e.g. /etc/couchdb/local.ini
 
+````
 [httpd]
 ...
 enable_cors = true
@@ -30,6 +31,7 @@ enable_cors = true
 [cors]
 origins = http://localhost
 methods = GET, POST, PUT, DELETE
+````
 
 #### Create a database
 
@@ -72,3 +74,6 @@ Task Slayer is built on top of the following:
 - [AngularJS](https://angularjs.org/)
 - [CouchDB](http://couchdb.apache.org/)
 - [jQuery](http://jquery.com/)
+- [perfect-scrollbar](http://noraesae.github.io/perfect-scrollbar/)
+- [angular-perfect-scrollbar](https://github.com/itsdrewmiller/angular-perfect-scrollbar)
+- [RequireJS](http://requirejs.org/)
