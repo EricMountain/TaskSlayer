@@ -4,6 +4,7 @@
 # TEAM
 
     Eric Mountain -- Developer
+    Thomas Teissier -- Original design for the first logo (TaskSlayer.svg).
 
 # TECHNOLOGY COLOPHON
 
