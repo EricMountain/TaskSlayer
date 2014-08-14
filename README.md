@@ -64,7 +64,7 @@ Navigate to the TaskSlayer URL, e.g. http://localhost/tasks.
 
 #### Keyboard shortcuts:
 
-* Alt-N/S/D/W: Goto Now/Schedule/Delegat/Waste category.
+* Alt-N/S/D/W: Goto Now/Schedule/Delegate/Waste category.
 * Alt-Shift-N/S/D/W: Move current task to another category.
 * Enter,Ctrl-Shift-Insert: Create new task after/before the current one.
 * Ctrl-Shift-Enter, Ctrl-Shift-Del: Mark task done.
