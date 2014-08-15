@@ -13,7 +13,8 @@ define(["angular", "./localstorage", "./couchstorage", "./schema"],
                 .factory('datastorage', ['localstorage', 'couchstorage', 'schema', function(localstorage, couchstorage, schema) {
 
                     function save(data, conflictResolution) {
-                        couchstorage.save(data, function(data) { localstorage.save(data) }, conflictResolution);
+                        couchstorage.save(data, conflictResolution);
+                        localstorage.save(data);
                     }
 
                     //function savePartial(key, datum) {
@@ -22,11 +23,10 @@ define(["angular", "./localstorage", "./couchstorage", "./schema"],
 
                     function load(keyBase, callback) {
                         couchstorage.load(keyBase, function(data) {
-                            var lsData = localstorage.load();
 
                             if (data === undefined) {
                                 console.log("No data from CouchDB, relying on local storage");
-                                data = lsData;
+                                data = localstorage.load();
                             }
 
                             data = schema.upgrade(keyBase, data);

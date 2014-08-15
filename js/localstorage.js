@@ -13,13 +13,18 @@ define(["angular"],
                 .factory('localstorage', ['$http', function($http) {
 
                     function save(data) {
+                        console.log("Saving to local storage");
+                        console.log(angular.toJson(data));
                         localStorage.storageService = angular.toJson(data);
                     }
 
                     function load() {
                         var json = localStorage.storageService;
 
-                        return json;
+                        console.log("Loaded from local storage:");
+                        console.log(json);
+
+                        return angular.fromJson(json);
                     }
 
                     return {
