@@ -30,6 +30,18 @@ Make the Task Slayer source files available from a web server, e.g. nginx:
 
 ### Setup CouchDB (optional)
 
+If you install CouchDB, task data will be saved both to HTML5 local
+storage and the CouchDB instance on your system, otherwise it will only
+be saved to local storage.
+
+If you rely only on local storage, then ensure that it is not cleaned,
+e.g. on browser exit.  In Chrome and Firefox for instance, this means
+ensuring:
+* your browser does not delete cookies on exit
+* you don't delete all cookies or the cookies related to the site you
+server the app from
+
+
 #### Install CouchDB
 
 See [CouchDB docs](http://docs.couchdb.org/en/latest/install/index.html).
