@@ -13,8 +13,12 @@ define(["angular", "./localstorage", "./couchstorage", "./schema"],
                 .factory('datastorage', ['localstorage', 'couchstorage', 'schema', function(localstorage, couchstorage, schema) {
 
                     function save(data, conflictResolution) {
-                        couchstorage.save(data, conflictResolution);
-                        localstorage.save(data);
+                        couchstorage.save(data,
+                                          function(d) {
+                                              localstorage.save(d);
+                                          },
+                                          conflictResolution);
+
                     }
 
                     //function savePartial(key, datum) {

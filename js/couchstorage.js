@@ -18,6 +18,7 @@ define(["angular"],
 
                     var pendingData = undefined;
                     var pendingRev = undefined;
+                    var isLastSaveOrLoadFailed = false;
 
                     function deepCopy(object) {
                         if (typeof object === 'undefined')
@@ -34,7 +35,11 @@ define(["angular"],
                         return deepCopyObject;
                     }
 
-                    function internalSave(data, newRev, conflictResolution) {
+                    function save(data, postSaveCallback, conflictResolution) {
+                        processPendingSave(data, undefined, postSaveCallback, conflictResolution);
+                    }
+
+                    function processPendingSave(data, newRev, postSaveCallback, conflictResolution) {
                         if (!(typeof data === 'undefined')) {
                             pendingData = deepCopy(data);
                         }
@@ -43,57 +48,83 @@ define(["angular"],
                             pendingRev = newRev;
                         }
 
-                        if (!(typeof pendingData === 'undefined') && !(typeof pendingRev === 'undefined')) {
+                        if (!(typeof pendingData === 'undefined')
+                            && (!(typeof pendingRev === 'undefined')
+                               || isLastSaveOrLoadFailed)) {
                             var saveData = pendingData;
                             pendingData = undefined;
 
-                            saveData._rev = pendingRev;
-                            pendingRev = undefined;
+                            if (!(typeof pendingRev === 'undefined')) {
+                                saveData._rev = pendingRev;
+                                pendingRev = undefined;
+                            }
 
-                            saveToCouchDB(saveData, conflictResolution);
+                            saveToCouchDB(data, saveData, postSaveCallback, conflictResolution);
                         }
                     }
 
-                    function saveToCouchDB(data, conflictResolution) {
-                        $http.put(defaultUrl + '/' + tasksDb + '/' + data._id, angular.toJson(data))
+                    function saveToCouchDB(dataModel, dataCopy, postSaveCallback, conflictResolution) {
+                        var json = angular.toJson(dataCopy);
+
+                        console.log("Asynch save to CouchDB: " + dataCopy._rev);
+
+                        $http.put(defaultUrl + '/' + tasksDb + '/' + dataCopy._id, json)
                             .success(function(responseDataJson, status, headers, config) {
-                                console.log("Saved to CB");
-                                // FIXME - need to check conflictResolution is defined
-
                                 var responseData = angular.fromJson(responseDataJson)
-                                data._rev = responseData.rev;
 
-                                internalSave(undefined, responseData.rev, conflictResolution);
+                                dataCopy._rev = responseData.rev;
+                                if (!(typeof dataModel === 'undefined'))
+                                    dataModel._rev = responseData.rev;
+
+                                console.log("Saved to CouchDB, new rev: " + responseData.rev);
+
+                                isLastSaveOrLoadFailed = false;
+
+                                // NB - _rev updated with new CouchDB value
+                                postSaveCallback(dataCopy);
+
+                                processPendingSave(undefined, responseData.rev, postSaveCallback, conflictResolution);
                             })
                             .error(function(responseData, status, headers, config) {
-                                console.log("Error saving to CB");
+                                console.log("Error saving to CouchDB");
                                 console.log(status);
                                 console.log(headers);
 
                                 if (status == 409) { // Conflict
                                     // Reload data and drop the change
-                                    conflictResolution(undefined,
-                                                       {message: "Conflict detected on save.  Data reloaded and change discarded"});
+                                    if (!(typeof conflictResolution === 'undefined'))
+                                        conflictResolution(undefined,
+                                                           {message: "Conflict detected on save.  Data reloaded and change discarded"});
+                                } else {
+                                    isLastSaveOrLoadFailed = true;
+
+                                    // Best effort anyway
+                                    // NB - _rev unchanged
+                                    postSaveCallback(dataCopy);
                                 }
                             });
-                    }
-
-                    function save(data, conflictResolution) {
-                        internalSave(data, undefined, conflictResolution);
                     }
 
                     function load(id, callback) {
                         $http.get(defaultUrl + '/' + tasksDb + '/' + id)
                             .success(function(json, status, headers, config) {
-                                console.log("Data loaded from CB");
+                                console.log("Data loaded from CouchDB");
+
+                                isLastSaveOrLoadFailed = false;
+
                                 var data = angular.fromJson(json);
                                 callback(data);
-                                internalSave(undefined, data._rev);
+
+                                processPendingSave(undefined, data._rev);
                             })
                             .error(function(data, status, headers, config) {
-                                console.log("Error loading from CB");
+                                console.log("Error loading from CouchDB");
                                 console.log(status);
                                 console.log(headers);
+
+                                // Ensure saves to CouchDB will be attempted despite the load failing
+                                isLastSaveOrLoadFailed = true;
+
                                 callback(/* No data */);
                             });
                     }
