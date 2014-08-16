@@ -74,6 +74,9 @@ Create a DB called tasks: http://localhost:5984/_utils/
 
 Navigate to the TaskSlayer URL, e.g. http://localhost/tasks.
 
+Task Slayer is verified to work on recent versions of Chromium/Chrome
+and Firefox.  It should work on Opera.
+
 #### Keyboard shortcuts:
 
 * Alt-N/S/D/W: Goto Now/Schedule/Delegate/Waste category.
