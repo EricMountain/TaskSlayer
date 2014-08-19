@@ -22,7 +22,11 @@ define(["angular"],
                         var json = localStorage.storageService;
                         var data = angular.fromJson(json);
 
-                        console.log("Loaded from local storage: " + data._rev);
+                        var dataInfo = "no data";
+                        if (!(typeof data === 'undefined'))
+                            dataInfo = data._rev;
+
+                        console.log("Loaded from local storage: " + dataInfo);
 
                         return data;
                     }
