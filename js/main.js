@@ -253,8 +253,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             } else if ($event.ctrlKey && $event.shiftKey) {
                 switch($event.keyCode) {
                 case 45: // Insert - Add task before current position
-                    var target = index > 0 ? index - 1 : index;
-                    $scope.addTaskAtIndex(category, target);
+                    $scope.addTaskAtIndex(category, index);
                     break;
                 case 8: // Backspace
                 case 46: // Delete
