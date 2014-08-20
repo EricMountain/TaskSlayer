@@ -1,6 +1,7 @@
 /*! Task Slayer | (c) 2014 Eric Mountain | https://github.com/EricMountain/TaskSlayer */
 
-define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "angular-route", "angular-animate", "app/schema", "app/couchstorage", "app/localstorage", "app/datastorage"], function($) {
+/*jshint unused: vars */
+define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "angular-route", "angular-animate", "schema", "couchstorage", "localstorage", "datastorage"]/*deps*/, function($)/*invoke*/ {
 
     // Handle resizing
     function resizeSubBlocks() {
