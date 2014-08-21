@@ -2,18 +2,18 @@
 
 // LocalStorage layer
 
-define(["angular"],
+define(['angular'],
     function() {
-        (function(window, angular, undefined) {
+        'use strict';
 
-            'use strict';
+        (function(window, angular, undefined) {
 
             angular.module('localstorage', [])
 
-                .factory('localstorage', ['$http', function($http) {
+                .factory('localstorage', function() {
 
                     function save(data) {
-                        console.log("Saving to local storage: " + data._rev);
+                        console.log('Saving to local storage: ' + data._rev);
 
                         localStorage.storageService = angular.toJson(data);
                     }
@@ -22,11 +22,11 @@ define(["angular"],
                         var json = localStorage.storageService;
                         var data = angular.fromJson(json);
 
-                        var dataInfo = "no data";
-                        if (!(typeof data === 'undefined'))
+                        var dataInfo = 'no data';
+                        if (typeof data !== 'undefined')
                             dataInfo = data._rev;
 
-                        console.log("Loaded from local storage: " + dataInfo);
+                        console.log('Loaded from local storage: ' + dataInfo);
 
                         return data;
                     }
@@ -36,7 +36,7 @@ define(["angular"],
                         load: load
                     };
 
-                }]);
+                });
 
         })(window, window.angular);
     });

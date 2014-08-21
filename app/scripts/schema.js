@@ -2,15 +2,15 @@
 
 // Handle schema upgrades
 
-define(["angular"],
+define(['angular'],
     function() {
-        (function(window, angular, undefined) {
+        'use strict';
 
-            'use strict';
+        (function(window, angular, undefined) {
 
             angular.module('schema', [])
 
-                .factory('schema', ['$http', function($http) {
+                .factory('schema', function() {
 
                     function latestVersion() {
                         return 8;
@@ -33,6 +33,7 @@ define(["angular"],
                             case 6:
                             case 7:
                                 data._id = baseKey;
+                                /* falls through */
                             default:
                                 data.version = latestVersion();
                             }
@@ -49,25 +50,25 @@ define(["angular"],
 
                             taskCategories: {
                                 urgentImportant: {
-                                    description: "Now",
+                                    description: 'Now',
                                     tasks: {
                                         list: []
                                     }
                                 },
                                 urgent: {
-                                    description: "Delegate",
+                                    description: 'Delegate',
                                     tasks: {
                                         list: []
                                     }
                                 },
                                 important: {
-                                    description: "Schedule",
+                                    description: 'Schedule',
                                     tasks: {
                                         list: []
                                     }
                                 },
                                 waste: {
-                                    description: "Waste",
+                                    description: 'Waste',
                                     tasks: {
                                         list: []
                                     }
@@ -80,7 +81,7 @@ define(["angular"],
                         upgrade: upgrade
                     };
 
-                }]);
+                });
 
         })(window, window.angular);
     });

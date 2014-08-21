@@ -2,11 +2,11 @@
 
 // Data storage layer
 
-define(["angular", "./localstorage", "./couchstorage", "./schema"],
+define(['angular', './localstorage', './couchstorage', './schema'],
     function() {
-        (function(window, angular, undefined) {
+        'use strict';
 
-            'use strict';
+        (function(window, angular, undefined) {
 
             angular.module('datastorage', [])
 
@@ -29,7 +29,7 @@ define(["angular", "./localstorage", "./couchstorage", "./schema"],
                         couchstorage.load(keyBase, function(data) {
 
                             if (data === undefined) {
-                                console.log("No data from CouchDB, relying on local storage");
+                                console.log('No data from CouchDB, relying on local storage');
                                 data = localstorage.load();
                             }
 

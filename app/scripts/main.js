@@ -1,50 +1,51 @@
 // FIXME add map for noconflict - cf requirejs docs
 
+/*jshint unused: vars */
 requirejs.config({
     paths: {
-        angular: "../../bower_components/angular/angular",
-        "angular-animate": "../../bower_components/angular-animate/angular-animate",
-        "angular-mocks": "../../bower_components/angular-mocks/angular-mocks",
-        "angular-route": "../../bower_components/angular-route/angular-route",
-        "angular-scenario": "../../bower_components/angular-scenario/angular-scenario",
-        jquery: "vendor/jquery-1.10.2.min",
-        "perfect-scrollbar": "vendor/perfect-scrollbar.min",
-        "angular-perfect-scrollbar": "vendor/angular-perfect-scrollbar"
+        angular: '../../bower_components/angular/angular',
+        'angular-animate': '../../bower_components/angular-animate/angular-animate',
+        'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
+        'angular-route': '../../bower_components/angular-route/angular-route',
+        'angular-scenario': '../../bower_components/angular-scenario/angular-scenario',
+        jquery: 'vendor/jquery-1.10.2.min',
+        'perfect-scrollbar': 'vendor/perfect-scrollbar.min',
+        'angular-perfect-scrollbar': 'vendor/angular-perfect-scrollbar'
     },
     shim: {
         angular: {
-            exports: "angular"
+            exports: 'angular'
         },
-        "angular-route": {
+        'angular-route': {
             deps: [
-                "angular"
+                'angular'
             ]
         },
-        "angular-animate": {
+        'angular-animate': {
             deps: [
-                "angular"
+                'angular'
             ]
         },
-        "angular-mocks": {
+        'angular-mocks': {
             deps: [
-                "angular"
+                'angular'
             ],
-            exports: "angular.mock"
+            exports: 'angular.mock'
         },
-        "perfect-scrollbar": {
+        'perfect-scrollbar': {
             deps: [
-                "jquery"
+                'jquery'
             ]
         },
-        "angular-perfect-scrollbar": {
+        'angular-perfect-scrollbar': {
             deps: [
-                "perfect-scrollbar",
-                "angular"
+                'perfect-scrollbar',
+                'angular'
             ]
         }
     },
     priority: [
-        "angular"
+        'angular'
     ],
     packages: [
 
@@ -52,5 +53,5 @@ requirejs.config({
 });
 
 // Load the main app module to start the app
-//requirejs(["app/main"]);
-requirejs(["app"]);
+//requirejs(['app/main']);
+requirejs(['app']);

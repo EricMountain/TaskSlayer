@@ -2,29 +2,29 @@
 
 // CouchDB layer
 
-define(["angular"],
+/*jshint unused: vars */
+define(['angular'],
     function() {
-        (function(window, angular, undefined) {
+        'use strict';
 
-            'use strict';
+        (function(window, angular, undefined) {
 
             angular.module('couchstorage', [])
 
                 .factory('couchstorage', ['$http', function($http) {
 
-                    var defaultUrl = "http://127.0.0.1:5984";
-                    var tasksDb = "tasks";
-                    var url;
+                    var defaultUrl = 'http://127.0.0.1:5984';
+                    var tasksDb = 'tasks';
 
-                    var pendingData = undefined;
-                    var pendingRev = undefined;
+                    var pendingData;
+                    var pendingRev;
                     var isLastSaveOrLoadFailed = false;
 
                     function deepCopy(object) {
                         if (typeof object === 'undefined')
                             return undefined;
 
-                        if (object == null || typeof object != 'object')
+                        if (object === null || typeof object !== 'object')
                             return object;
 
                         var deepCopyObject = object.constructor();
@@ -40,21 +40,20 @@ define(["angular"],
                     }
 
                     function processPendingSave(data, newRev, postSaveCallback, conflictResolution) {
-                        if (!(typeof data === 'undefined')) {
+                        if (typeof data !== 'undefined') {
                             pendingData = deepCopy(data);
                         }
 
-                        if (!(typeof newRev === 'undefined')) {
+                        if (typeof newRev !== 'undefined') {
                             pendingRev = newRev;
                         }
 
-                        if (!(typeof pendingData === 'undefined')
-                            && (!(typeof pendingRev === 'undefined')
-                               || isLastSaveOrLoadFailed)) {
+                        if (typeof pendingData !== 'undefined' &&
+                            (typeof pendingRev !== 'undefined' || isLastSaveOrLoadFailed)) {
                             var saveData = pendingData;
                             pendingData = undefined;
 
-                            if (!(typeof pendingRev === 'undefined')) {
+                            if (typeof pendingRev !== 'undefined') {
                                 saveData._rev = pendingRev;
                                 pendingRev = undefined;
                             }
@@ -66,17 +65,17 @@ define(["angular"],
                     function saveToCouchDB(dataModel, dataCopy, postSaveCallback, conflictResolution) {
                         var json = angular.toJson(dataCopy);
 
-                        console.log("Asynch save to CouchDB: " + dataCopy._rev);
+                        console.log('Asynch save to CouchDB: ' + dataCopy._rev);
 
                         $http.put(defaultUrl + '/' + tasksDb + '/' + dataCopy._id, json)
                             .success(function(responseDataJson, status, headers, config) {
-                                var responseData = angular.fromJson(responseDataJson)
+                                var responseData = angular.fromJson(responseDataJson);
 
                                 dataCopy._rev = responseData.rev;
-                                if (!(typeof dataModel === 'undefined'))
+                                if (typeof dataModel !== 'undefined')
                                     dataModel._rev = responseData.rev;
 
-                                console.log("Saved to CouchDB, new rev: " + responseData.rev);
+                                console.log('Saved to CouchDB, new rev: ' + responseData.rev);
 
                                 isLastSaveOrLoadFailed = false;
 
@@ -86,15 +85,15 @@ define(["angular"],
                                 processPendingSave(undefined, responseData.rev, postSaveCallback, conflictResolution);
                             })
                             .error(function(responseData, status, headers, config) {
-                                console.log("Error saving to CouchDB");
+                                console.log('Error saving to CouchDB');
                                 console.log(status);
                                 console.log(headers);
 
-                                if (status == 409) { // Conflict
+                                if (status === 409) { // Conflict
                                     // Reload data and drop the change
-                                    if (!(typeof conflictResolution === 'undefined'))
+                                    if (typeof conflictResolution !== 'undefined')
                                         conflictResolution(undefined,
-                                                           {message: "Conflict detected on save.  Data reloaded and change discarded"});
+                                                           {message: 'Conflict detected on save.  Data reloaded and change discarded'});
                                 } else {
                                     isLastSaveOrLoadFailed = true;
 
@@ -108,7 +107,7 @@ define(["angular"],
                     function load(id, callback) {
                         $http.get(defaultUrl + '/' + tasksDb + '/' + id)
                             .success(function(json, status, headers, config) {
-                                console.log("Data loaded from CouchDB");
+                                console.log('Data loaded from CouchDB');
 
                                 isLastSaveOrLoadFailed = false;
 
@@ -118,7 +117,7 @@ define(["angular"],
                                 processPendingSave(undefined, data._rev);
                             })
                             .error(function(data, status, headers, config) {
-                                console.log("Error loading from CouchDB");
+                                console.log('Error loading from CouchDB');
                                 console.log(status);
                                 console.log(headers);
 

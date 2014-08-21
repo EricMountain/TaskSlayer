@@ -1,7 +1,8 @@
 /*! Task Slayer | (c) 2014 Eric Mountain | https://github.com/EricMountain/TaskSlayer */
 
 /*jshint unused: vars */
-define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "angular-route", "angular-animate", "schema", "couchstorage", "localstorage", "datastorage"]/*deps*/, function($)/*invoke*/ {
+define(['jquery', 'perfect-scrollbar', 'angular-perfect-scrollbar', 'angular', 'angular-route', 'angular-animate', 'schema', 'couchstorage', 'localstorage', 'datastorage'], function($) {
+    'use strict';
 
     // Handle resizing
     function resizeSubBlocks() {
@@ -12,12 +13,12 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
 
         // Make sub-blocks half the size of the page
         var subBlockHeight = usableHeight / 2;
-        $(".sub-block").css({"height": subBlockHeight});
+        $('.sub-block').css({'height': subBlockHeight});
 
         // Make the scrolled areas take up what's left of the sub-blocks
-        var scrollNoneHeight = $(".scroll-none").outerHeight(true);
+        var scrollNoneHeight = $('.scroll-none').outerHeight(true);
         var scrollerHeight = subBlockHeight - scrollNoneHeight;
-        $(".scroller").css({"height": scrollerHeight});
+        $('.scroller').css({'height': scrollerHeight});
     }
 
     $(window).resize(function() {
@@ -36,23 +37,23 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             model: {},
 
             SaveState: function () {
-                datastorage.save(service.model, function() { console.log("Conflict resolution invoked"); service.RestoreState();});
+                datastorage.save(service.model, function() { console.log('Conflict resolution invoked'); service.RestoreState();});
             },
 
             RestoreState: function (event, args) {
-                if (typeof keyBase === 'undefined')
-                    keyBase = "TaskSlayer-" + args.location;
+                if (typeof service.keyBase === 'undefined')
+                    service.keyBase = 'TaskSlayer-' + args.location;
 
-                datastorage.load(keyBase, function(data) {
+                datastorage.load(service.keyBase, function(data) {
                     service.model = data;
 
-                    $rootScope.$broadcast("staterestored", args);
+                    $rootScope.$broadcast('staterestored', args);
                 });
             }
-        }
+        };
 
-        $rootScope.$on("savestate", service.SaveState);
-        $rootScope.$on("restorestate", service.RestoreState);
+        $rootScope.$on('savestate', service.SaveState);
+        $rootScope.$on('restorestate', service.RestoreState);
 
         return service;
     }]);
@@ -64,7 +65,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
 
     taskSlayerApp.controller('taskSlayerCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, dataModelService) {
 
-        $scope.message = "";
+        $scope.message = '';
         $scope.showMessage = false;
 
         $scope.dataModelService = dataModelService;
@@ -74,13 +75,13 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             $rootScope.$broadcast('savestate');
         };
 
-        $scope.$on("$routeChangeSuccess", function( $currentRoute, $previousRoute ) {
-            var loc = $location.absUrl().replace(/[/:]/g, "-");
+        $scope.$on('$routeChangeSuccess', function( $currentRoute, $previousRoute ) {
+            var loc = $location.absUrl().replace(/[/:]/g, '-');
             $rootScope.$broadcast('restorestate', {location: loc});
         });
 
-        $scope.$on("staterestored", function(event, args) {
-            args = (typeof args === "undefined") ? {} : args;
+        $scope.$on('staterestored', function(event, args) {
+            args = (typeof args === 'undefined') ? {} : args;
 
             // Update shortcut after state has been restored asynchronously
             $scope.categories = dataModelService.model.taskCategories;
@@ -104,8 +105,8 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
         });
 
         $scope.addTask = function(category, task, persist) {
-            task = (typeof task === "undefined") ? {description: "", done: false} : task;
-            persist = (typeof persist === "undefined") ? true : persist;
+            task = (typeof task === 'undefined') ? {description: '', done: false} : task;
+            persist = (typeof persist === 'undefined') ? true : persist;
 
             category.tasks.list.push(task);
 
@@ -114,7 +115,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
         };
 
         $scope.addTaskAtIndex = function(category, index) {
-            category.tasks.list.splice(index, 0, {description: "", done: false});
+            category.tasks.list.splice(index, 0, {description: '', done: false});
             $rootScope.$broadcast('savestate');
         };
 
@@ -123,18 +124,18 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
         };
 
         $scope.deleteTask = function(category, index, persist) {
-            persist = (typeof persist === "undefined") ? true : persist;
+            persist = (typeof persist === 'undefined') ? true : persist;
 
-            task = category.tasks.list.splice(index, 1)[0];
+            var task = category.tasks.list.splice(index, 1)[0];
 
             var target;
             var delay = 0;
 
-            if (index == category.tasks.list.length && index > 0) {
+            if (index === category.tasks.list.length && index > 0) {
                 target = index - 1;
             } else {
                 target = index;
-                // There is a .5" fade-out. If we focus immediately,
+                // There is a .5' fade-out. If we focus immediately,
                 // it will be on the item being deleted, so we'll just
                 // lose focus.
                 delay = 350;
@@ -149,11 +150,11 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
         };
 
         $scope.focusTask = function(category, index, delay) {
-            delay = (typeof delay === "undefined") ? 0 : delay;
+            delay = (typeof delay === 'undefined') ? 0 : delay;
 
             if (category.tasks.list.length > index && index >= 0) {
                 $timeout(function() {
-                    $("#" + category.description + "-" + index).focus();
+                    $('#' + category.description + '-' + index).focus();
                 }, delay);
             }
         };
@@ -162,7 +163,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             if (target < 0 || target >= category.tasks.list.length)
                 return;
 
-            if (target == index)
+            if (target === index)
                 return;
 
             category.tasks.list.splice(target, 0, category.tasks.list.splice(index, 1)[0]);
@@ -170,7 +171,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             $rootScope.$broadcast('savestate');
 
             $scope.focusTask(category, target);
-        }
+        };
 
         $scope.moveTask = function(category, index, direction) {
             var target = index + direction;
@@ -192,17 +193,17 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             if (destination === source)
                 return;
 
-            task = $scope.deleteTask(source, index, false);
+            var task = $scope.deleteTask(source, index, false);
 
             $scope.addTask(destination, task);
         };
 
         $scope.focusCategory = function(category) {
-            if (category.tasks.list.length == 0)
+            if (category.tasks.list.length === 0)
                 $scope.addTask(category);
             else
                 $scope.focusTask(category, 0);
-        }
+        };
 
         $scope.keypress = function($event) {
             var isHandledHere = true;
@@ -334,7 +335,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
             timer = setTimeout(function() {
                 element[0].focus();
             }, 0);
-        }
+        };
     });
 
     angular.bootstrap(document, ['taskSlayerApp']);
@@ -342,7 +343,7 @@ define(["jquery", "perfect-scrollbar", "angular-perfect-scrollbar", "angular", "
     resizeSubBlocks();
 
     // Hide the loading pane...
-    $("#wait-pane-master").css({visibility: "hidden"});
+    $('#wait-pane-master').css({visibility: 'hidden'});
 
     // Ugly, but can't seem to get the scrollable blocks sized correctly until
     // after the initial load
