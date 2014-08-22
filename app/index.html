@@ -73,7 +73,14 @@
         <![endif]-->
         <!-- endbuild -->
 
-        <script src="bower_components/requirejs/require.js" data-main="scripts/main"></script>
+        <!-- //build:js(.) scripts/req.js -->
+        <!-- script src="bower_components/requirejs/require.js"></script -->
+        <!-- //endbuild -->
+        <script src="scripts/vendor/require-2.1.14.minified.js"></script>
+
+        <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!-- script>

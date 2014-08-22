@@ -138,7 +138,7 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= yeoman.dist %>/{,*/}*',
+            '<%= yeoman.dist %>/**/*',
             '!<%= yeoman.dist %>/.git*'
           ]
         }]
@@ -337,7 +337,8 @@ module.exports = function (grunt) {
             'views/{,*/}*.html',
             'bower_components/**/*',
             'images/{,*/}*.{webp}',
-            'fonts/*'
+            'fonts/*',
+            'angular-templates/*'
           ]
         }, {
           expand: true,
