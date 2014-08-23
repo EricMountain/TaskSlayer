@@ -62,8 +62,8 @@ enable_cors = true
 ...
 
 [cors]
-origins = http://localhost
-methods = GET, POST, PUT, DELETE
+origins = http://localhost[,...]
+methods = GET, POST, PUT, DELETE, OPTIONS
 ````
 
 #### Create a database
