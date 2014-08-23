@@ -26,7 +26,10 @@
         <link rel="stylesheet" href="styles/taskslayer.css">
         <!-- endbuild -->
 
+        <!-- build:js(app) scripts/misc.js -->
         <script src="scripts/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="scripts/plugins.js"></script>
+        <!-- endbuild -->
 
     </head>
     <body ng-controller="taskSlayerCtrl" ng-keydown="keypress($event)">
@@ -64,14 +67,14 @@
         </div>
 
 
-        <!-- build:js(.) scripts/oldieshim.js -->
+        <!-- build:js(.) scripts/vendor/oldieshim.js -->
         <!--[if lt IE 9]>
         <script src="bower_components/es5-shim/es5-shim.js"></script>
         <script src="bower_components/json3/lib/json3.min.js"></script>
         <![endif]-->
         <!-- endbuild -->
 
-        <script src="scripts/vendor/require-2.1.14.minified.js" data-main="scripts/main"></script>
+        <script src="scripts-requirejs/vendor/require-2.1.14.minified.js" data-main="scripts-requirejs/main"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!-- script>

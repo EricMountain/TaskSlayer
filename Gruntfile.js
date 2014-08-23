@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+          files: ['<%= yeoman.app %>/scripts/{,*/}*.js', '<%= yeoman.app %>/scripts-requirejs/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -120,7 +120,8 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/scripts/{,*/}*.js',
+          '<%= yeoman.app %>/scripts-requirejs/{,*/}*.js'
         ]
       },
       test: {
@@ -309,7 +310,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           // cwd: '<%= yeoman.app %>/scripts',
-          src: '<%= yeoman.app %>/scripts/**/*.js',
+          src: '<%= yeoman.app %>/scripts-requirejs/**/*.js',
           dest: '.tmp'
         }]
       }
@@ -381,7 +382,7 @@ module.exports = function (grunt) {
     // Settings for grunt-bower-requirejs
     bower: {
       app: {
-        rjsConfig: '<%= yeoman.app %>/scripts/main.js',
+        rjsConfig: '<%= yeoman.app %>/scripts-requirejs/main.js',
         options: {
           exclude: ['requirejs', 'json3', 'es5-shim']
         }
@@ -395,7 +396,7 @@ module.exports = function (grunt) {
         replacements: [{
           from: /paths: {[^}]+}/,
           to: function() {
-            return require('fs').readFileSync(grunt.template.process('<%= yeoman.app %>') + '/scripts/main.js').toString().match(/paths: {[^}]+}/);
+            return require('fs').readFileSync(grunt.template.process('<%= yeoman.app %>') + '/scripts-requirejs/main.js').toString().match(/paths: {[^}]+}/);
           }
         }]
       }
@@ -405,14 +406,14 @@ module.exports = function (grunt) {
     requirejs: {
       dist: {
         options: {
-          dir: '<%= yeoman.dist %>/scripts/',
+          dir: '<%= yeoman.dist %>/scripts-requirejs',
           modules: [{
             name: 'main'
           }],
           preserveLicenseComments: false, // remove all comments
           removeCombined: true,
-          baseUrl: '<%= yeoman.app %>/scripts',
-          mainConfigFile: '.tmp/<%= yeoman.app %>/scripts/main.js',
+          baseUrl: '<%= yeoman.app %>/scripts-requirejs',
+          mainConfigFile: '.tmp/<%= yeoman.app %>/scripts-requirejs/main.js',
           optimize: 'uglify2',
           uglify2: {
             mangle: false
@@ -459,11 +460,10 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    // Commented out so can work offline
+    // Commented out so can work offline + not needed
     //'cdnify',
     'cssmin',
-    // Below task commented out as r.js (via grunt-contrib-requirejs) will take care of this
-    // 'uglify',
+    'uglify',
     'filerev',
     'usemin',
     'requirejs:dist',

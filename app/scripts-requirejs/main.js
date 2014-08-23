@@ -53,5 +53,4 @@ requirejs.config({
 });
 
 // Load the main app module to start the app
-//requirejs(['app/main']);
 requirejs(['app']);
