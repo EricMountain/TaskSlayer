@@ -73,7 +73,10 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          open: true,
+          open: true, // Opens with default browser
+          /*open: {
+            appName: 'chromium'
+          },*/
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
