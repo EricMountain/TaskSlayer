@@ -1,7 +1,7 @@
 /*! Task Slayer | (c) 2014 Eric Mountain | https://github.com/EricMountain/TaskSlayer */
 
 /*jshint unused: vars */
-define(['jquery', 'perfect-scrollbar', 'angular-perfect-scrollbar', 'angular', 'angular-route', 'angular-animate', 'schema', 'couchstorage', 'localstorage', 'datastorage'], function($) {
+define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', 'angular-route', 'angular-animate', 'schema', 'couchstorage', 'localstorage', 'datastorage'], function($) {
     'use strict';
 
     // Handle resizing
