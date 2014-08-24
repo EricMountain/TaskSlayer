@@ -39,9 +39,9 @@ define(['angular', 'angular-mocks', 'app'], function(angular, mocks, app) {
 
             var testTask = {description: 'test', done: true};
             console.log('============== in spec');
-            //console.log(scope);
+            console.log(scope);
             console.log(scope.dataModelService);
-            spyOn(scope.dataModelService, 'SaveState').andCallThrough();
+            spyOn(scope.dataModelService, 'SaveState').and.callThrough();
             scope.addTask(category, testTask);
             expect(category.tasks.list.length).toEqual(3);
             expect(category.tasks.list[2]).toEqual(testTask);
