@@ -1,2 +1,2 @@
 app/scripts/vendor/*.js
-
+app/scripts-requirejs/vendor/*.js

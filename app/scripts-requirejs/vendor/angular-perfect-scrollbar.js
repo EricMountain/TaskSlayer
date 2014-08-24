@@ -2,6 +2,8 @@
 // Commit 8aaed88f74
 
 angular.module('perfect_scrollbar', []).directive('perfectScrollbar', ['$parse', function($parse) {
+  'use strict';
+
   var psOptions = [
     'wheelSpeed', 'wheelPropagation', 'minScrollbarLength', 'useBothWheelAxes',
     'useKeyboard', 'suppressScrollX', 'suppressScrollY', 'scrollXMarginOffset',
@@ -18,7 +20,7 @@ angular.module('perfect_scrollbar', []).directive('perfectScrollbar', ['$parse',
       
       for (var i=0, l=psOptions.length; i<l; i++) {
         var opt = psOptions[i];
-        if ($attr[opt] != undefined) {
+        if ($attr[opt] !== undefined) {
           options[opt] = $parse($attr[opt])();
         }
       }
