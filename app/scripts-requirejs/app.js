@@ -27,8 +27,9 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
     // Bootstrap Angular
     var taskSlayerApp = angular.module('taskSlayerApp', ['ngRoute', 'ngAnimate', 'localstorage', 'couchstorage', 'datastorage', 'schema', 'perfect_scrollbar']);
-
+    console.log("======================= module TaskSlayerApp ===================");
     taskSlayerApp.factory('dataModelService', ['$rootScope', 'datastorage', function ($rootScope, datastorage) {
+    console.log("======================= module dataModelService ===================");
 
         var service = {
 
@@ -37,6 +38,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             model: {},
 
             SaveState: function () {
+                console.log("========== SaveState called");
                 datastorage.save(service.model, function() { console.log('Conflict resolution invoked'); service.RestoreState();});
             },
 
@@ -67,7 +69,8 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
         $scope.message = '';
         $scope.showMessage = false;
-
+        console.log('==================== dataModelService');
+        console.log(dataModelService);
         $scope.dataModelService = dataModelService;
         $scope.categories = dataModelService.model.taskCategories;
 

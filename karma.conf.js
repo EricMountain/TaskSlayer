@@ -7,7 +7,7 @@ module.exports = function(config) {
     basePath: '',
 
     // testing framework to use (jasmine/mocha/qunit/...)
-    frameworks: ['jasmine', "requirejs"],
+    frameworks: ['jasmine', 'requirejs'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -17,6 +17,7 @@ module.exports = function(config) {
       {pattern: 'bower_components/angular-animate/angular-animate.js', included: false },
       {pattern: 'app/scripts/*.js', included: false },
       {pattern: 'app/scripts/**/*.js', included: false },
+      {pattern: 'app/scripts-requirejs/**/*.js', included: false },
       {pattern: 'test/spec/**/*.js', included: false },
       // http://karma-runner.github.io/0.10/plus/requirejs.html
       'test/test-main.js'
@@ -24,7 +25,7 @@ module.exports = function(config) {
 
     // list of files / patterns to exclude
     exclude: [
-        'app/scripts/main.js'
+        'app/scripts-requirejs/main.js'
     ],
 
     // web server port
@@ -32,7 +33,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
@@ -48,6 +49,7 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: ['PhantomJS'],
+    //browsers: ['Firefox'],
 
 
     // Continuous Integration mode
