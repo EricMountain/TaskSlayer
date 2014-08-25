@@ -423,7 +423,23 @@ module.exports = function (grunt) {
           }
         }
       }
-    }
+    },
+
+                   protractor: {
+                       options: {
+                           configFile: "protractor.conf.js",
+                           keepAlive: true
+                       },
+                       singlerun: {},
+                       auto: {
+                           keepAlive: true,
+                           options: {
+                               args: {
+                                   seleniumPort: 4444
+                               }
+                           }
+                       }
+                   }
   });
 
 
@@ -450,6 +466,10 @@ module.exports = function (grunt) {
     'autoprefixer',
     'connect:test',
     'karma'
+  ]);
+
+  grunt.registerTask('test-e2e', [
+      'protractor:singlerun'
   ]);
 
   grunt.registerTask('build', [
