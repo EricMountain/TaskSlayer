@@ -425,21 +425,22 @@ module.exports = function (grunt) {
       }
     },
 
-                   protractor: {
-                       options: {
-                           configFile: "protractor.conf.js",
-                           keepAlive: true
-                       },
-                       singlerun: {},
-                       auto: {
-                           keepAlive: true,
-                           options: {
-                               args: {
-                                   seleniumPort: 4444
-                               }
-                           }
-                       }
-                   }
+    protractor: {
+      options: {
+        configFile: "protractor.conf.js",
+        keepAlive: true
+      },
+      singlerun: {},
+      auto: {
+        keepAlive: true,
+        options: {
+          args: {
+          seleniumPort: 4444
+          }
+        }
+      }
+    }
+
   });
 
 
