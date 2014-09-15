@@ -87,6 +87,54 @@ and Firefox.  It should work on Opera.
 * Ctrl-Shift-Home/End: move current task to top/bottom of the category.
 * ...
 
+## Developing Task Slayer
+
+### Setup nodejs
+
+* In ~/.npmrc: prefix=~/.global_npm
+* In ~/bashrc: export PATH=$PATH:~/.global_npm/bin
+
+### Install required packages
+
+e.g. on Arch:
+
+* sudo pacman -S nodejs jdk7-openjdk libyaml ruby
+* yaourt -S ruby-compass
+
+### Install nodejs and bower packages
+
+# npm install
+# bower update
+
+Note the original sequence was:
+* npm install -g bower
+* npm install -g yo
+* npm install -g generator-angular
+* npm install -g generator-angular-require
+* npm install -g generator-protractor
+* npm install karma-firefox-launcher --save-dev
+* npm install karma-jasmine@2_0 --save-dev
+* npm install grunt-protractor-runner --save-dev
+
+### Building, testing…
+
+#### Basics
+
+* Build: grunt build
+* Serve development local copy and launch in browser: grunt serve
+
+
+#### Running automated tests
+
+##### Unit tests
+
+* grunt test
+
+##### Integration tests
+
+* Start the Selenium server: ./node_modules/.bin/webdriver-manager start
+* Open a new terminal and run Protractor: ./node_modules/.bin/protractor protractor.conf.js
+
 ## Credits
 
 Task Slayer is built on top of the following:
