@@ -37,7 +37,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             model: {},
 
             SaveState: function () {
-                datastorage.save(service.model, function() { console.log('Conflict resolution invoked'); service.RestoreState();});
+                datastorage.save(service.model, function(event, args) { console.log('Conflict resolution invoked'); service.RestoreState(event, args);});
             },
 
             RestoreState: function (event, args) {
