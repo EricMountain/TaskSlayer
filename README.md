@@ -103,10 +103,10 @@ e.g. on Arch:
 
 ### Install nodejs and bower packages
 
-# npm install
-# bower update
+* npm install
+* bower update
 
-Note the original sequence was:
+For the record, the original sequence was:
 * npm install -g bower
 * npm install -g yo
 * npm install -g generator-angular
