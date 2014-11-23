@@ -1,4 +1,4 @@
-# Task Slayer
+# ![Logo](/img/TaskSlayer.png?raw=true "Logo") Task Slayer
 
 No frills, down to business [Eisenhower Matrix](http://en.wikipedia.org/wiki/Time_management#The_Eisenhower_Method) for task and priority management.
 
