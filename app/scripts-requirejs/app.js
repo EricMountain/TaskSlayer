@@ -104,6 +104,17 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             }, 0);
         });
 
+        $scope.setTaskStyle = function(category, index) {
+            var task = category.tasks.list[index];
+            var style = {};
+
+            if (task.description.indexOf('//') > -1) {
+                style.color = 'red' ;
+            }
+            
+            return style;
+        };
+
         $scope.addTask = function(category, task, persist) {
             task = (typeof task === 'undefined') ? {description: '', done: false} : task;
             persist = (typeof persist === 'undefined') ? true : persist;
@@ -320,6 +331,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 addTask: '&',
                 change: '&',
                 taskKeypress: '&',
+                setTaskStyle: '&',
                 title: '@'
             },
             templateUrl: 'angular-templates/task-category.html'
