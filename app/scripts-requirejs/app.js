@@ -108,8 +108,24 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             var task = category.tasks.list[index];
             var style = {};
 
-            if (task.description.indexOf('//') > -1) {
-                style.color = 'red' ;
+            var slashSlash = task.description.indexOf('//');
+            if (slashSlash > -1) {
+                var rest = task.description.substring(slashSlash + 2, slashSlash + 12);
+
+                var targetDate = Date.parse(rest);
+                var days = Math.floor((targetDate - Date.now()) / (1000*60*60*24));
+
+                //console.log(rest, targetDate, Date.now(), days);
+
+                if (days > 14) {
+                    style.color = 'blue';
+                } else if (days > 7) {
+                    style.color = 'orange';
+                } else if (days > 0) {
+                    style.color = 'red';
+                } else {
+                    style.color = 'purple';
+                }
             }
             
             return style;
