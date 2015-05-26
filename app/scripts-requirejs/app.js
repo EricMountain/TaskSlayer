@@ -1,4 +1,4 @@
-/*! Task Slayer | (c) 2014 Eric Mountain | https://github.com/EricMountain/TaskSlayer */
+/*! Task Slayer | (c) 2014-2015 Eric Mountain | https://github.com/EricMountain/TaskSlayer */
 
 /*jshint unused: vars */
 define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', 'angular-route', 'angular-animate', 'schema', 'couchstorage', 'localstorage', 'datastorage'], function($) {
@@ -63,13 +63,15 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             .otherwise({ controller: 'taskSlayerCtrl'});
     }]);
 
-    taskSlayerApp.controller('taskSlayerCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, dataModelService) {
+    taskSlayerApp.controller('taskSlayerCtrl', ['$scope', '$rootScope', '$route', '$timeout', '$location', '$interval', 'dataModelService', function($scope, $rootScope, $route, $timeout, $location, $interval, dataModelService) {
 
         $scope.message = '';
         $scope.showMessage = false;
 
         $scope.dataModelService = dataModelService;
         $scope.categories = dataModelService.model.taskCategories;
+
+        var stopInterval;
 
         $scope.change = function() {
             $rootScope.$broadcast('savestate');
@@ -104,6 +106,12 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
             }, 0);
         });
 
+        // Force a refresh at least once an hour.  This causes all task ng-style callbacks to be invoked,
+        // hence updating task colours if necessary.
+        stopInterval = $interval(function() {}, 1000 * 3600, 0, true);
+
+        $scope.$on('$destroy', function() { $interval.cancel(stopInterval); });
+
         $scope.setTaskStyle = function(category, index) {
             var task = category.tasks.list[index];
             var style = {};
@@ -115,7 +123,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 var targetDate = Date.parse(rest);
                 var days = Math.floor((targetDate - Date.now()) / (1000*60*60*24));
 
-                //console.log(rest, targetDate, Date.now(), days);
+                console.log(rest, targetDate, Date.now(), days);
 
                 if (days > 14) {
                     style.color = 'blue';
@@ -162,7 +170,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 target = index - 1;
             } else {
                 target = index;
-                // There is a .5' fade-out. If we focus immediately,
+                // There is a .5" fade-out. If we focus immediately,
                 // it will be on the item being deleted, so we'll just
                 // lose focus.
                 delay = 350;
