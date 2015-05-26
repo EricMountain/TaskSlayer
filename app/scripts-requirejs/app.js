@@ -125,14 +125,16 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
 
                 console.log(rest, targetDate, Date.now(), days);
 
-                if (days > 14) {
-                    style.color = 'blue';
+                if (days > 21) {
+                    style.color = '#009600'; // Green
+                } else if (days > 14) {
+                    style.color = '#001BCC'; // Blue
                 } else if (days > 7) {
-                    style.color = 'orange';
+                    style.color = '#FF5D00'; // Orange
                 } else if (days > 0) {
-                    style.color = 'red';
+                    style.color = '#D90009'; // Red
                 } else {
-                    style.color = 'purple';
+                    style.color = '#930CCC'; // Purple
                 }
             }
             
