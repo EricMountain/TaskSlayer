@@ -123,7 +123,8 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 var targetDate = Date.parse(rest);
                 if (!isNaN(targetDate)) {
 
-                    var days = Math.floor((targetDate - Date.now()) / (1000*60*60*24));
+                    var dayMillis = 86400000;
+                    var days = Math.floor(((targetDate + dayMillis) - Date.now()) / dayMillis);
 
                     console.log(rest, ',', targetDate, ',', Date.now(), ',', days);
 
@@ -133,7 +134,7 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                         style.color = '#001BCC'; // Blue
                     } else if (days > 7) {
                         style.color = '#FF5D00'; // Orange
-                    } else if (days > 0) {
+                    } else if (days >= 0) {
                         style.color = '#D90009'; // Red
                     } else {
                         style.color = '#930CCC'; // Purple
