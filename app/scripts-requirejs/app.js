@@ -142,6 +142,12 @@ define(['jquery', 'perfect-scrollbar', 'angular', 'angular-perfect-scrollbar', '
                 }
             }
 
+            var bangBang  = task.description.indexOf('!!');
+            if (bangBang > -1) {
+                style.background = '#e5e5e5';
+                style.borderRadius = '5px';
+            }
+
             return style;
         };
 
