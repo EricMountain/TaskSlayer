@@ -9,9 +9,15 @@ Webapp relying on browsers' HTML5 local storage, and optionally a local [CouchDB
 
 ### Download the code
 
-````Shell
+```Shell
 git clone https://github.com/EricMountain/TaskSlayer.git
-````
+```
+
+### Build
+
+* `npm install`
+* `bower update`
+* `grunt build`
 
 ### Serve Task Slayer from a web server
 
@@ -23,39 +29,42 @@ Make the Task Slayer source files available from a web server, e.g. nginx:
         ...
 
         location /tasks {
-             alias  /srv/www/whatever/TaskSlayer;
+             alias  /srv/www/whatever/TaskSlayer/dist;
              index  index.html;
         }
 ```
 
-### Setup CouchDB (optional)
+### Setup CouchDB
+
+At this point, TaskSlayer is ready for use. However, your data will only
+be saved to HTML5 local strage.
 
 If you install CouchDB, task data will be saved both to HTML5 local
-storage and the CouchDB instance on your system, otherwise it will only
-be saved to local storage.
+storage and the CouchDB instance on your system.
 
-If you rely only on local storage, then ensure that it is not cleaned,
+If you rely only on local storage, then it must not be cleaned,
 e.g. on browser exit.  In Chrome and Firefox for instance, this means
 ensuring:
-* your browser does not delete cookies on exit
-* you don't delete all cookies or the cookies related to the site you
-server the app from
 
+* your browser does not delete cookies on exit,
+* you don't delete all cookies or the cookies related to the site you
+server the app from.
 
 #### Install CouchDB
 
 See [CouchDB docs](http://docs.couchdb.org/en/latest/install/index.html).
 
 e.g. on Arch Linux:
-* pacman -S couchdb
-* systemctl enable couchdb
-* systemctl start couchdb
+
+* `pacman -S couchdb`
+* `systemctl enable couchdb`
+* `systemctl start couchdb`
 
 #### Enable [CORS](http://wiki.apache.org/couchdb/CORS)
 
 Edit the CouchDB local.ini file, e.g. /etc/couchdb/local.ini
 
-````
+```
 [httpd]
 ...
 enable_cors = true
@@ -64,7 +73,7 @@ enable_cors = true
 [cors]
 origins = http://localhost[,...]
 methods = GET, POST, PUT, DELETE, OPTIONS
-````
+```
 
 #### Create a database
 
@@ -91,53 +100,53 @@ and Firefox.  It should work on Opera.
 
 ### Setup nodejs
 
-* In ~/.npmrc: prefix=~/.global_npm
-* In ~/bashrc: export PATH=$PATH:~/.global_npm/bin
+* In ~/.npmrc: `prefix=~/.global_npm`
+* In ~/bashrc: `export PATH=$PATH:~/.global_npm/bin`
 
 ### Install required packages
 
 e.g. on Arch:
 
-* sudo pacman -S nodejs jdk7-openjdk libyaml ruby
-* yaourt -S ruby-compass
+* `sudo pacman -S nodejs jdk7-openjdk libyaml ruby`
+* `yaourt -S ruby-compass`
 
 ### Install nodejs and bower packages
 
-* npm install
-* bower update
+* `npm install
+* `bower update`
 
 For the record, the original sequence was:
-* npm install -g bower
-* npm install -g yo
-* npm install -g generator-angular
-* npm install -g generator-angular-require
-* npm install -g generator-protractor
-* npm install karma-firefox-launcher --save-dev
-* npm install karma-jasmine@2_0 --save-dev
-* npm install grunt-protractor-runner --save-dev
+
+* `npm install -g bower`
+* `npm install -g yo`
+* `npm install -g generator-angular`
+* `npm install -g generator-angular-require`
+* `npm install -g generator-protractor`
+* `npm install karma-firefox-launcher --save-dev`
+* `npm install karma-jasmine@2_0 --save-dev`
+* `npm install grunt-protractor-runner --save-dev`
 
 ### Building, testing…
 
 #### Basics
 
-* Build: grunt build
-* Serve development local copy and launch in browser: grunt serve
-
+* Build: `grunt build`
+* Serve development local copy and launch in browser: `grunt serve`
 
 #### Running automated tests
 
 ##### Unit tests
 
-* grunt test
+* `grunt test`
 
 ##### Integration tests
 
-* Start the Selenium server: ./node_modules/.bin/webdriver-manager start
-* Open a new terminal and run Protractor: ./node_modules/.bin/protractor protractor.conf.js
+* Start the Selenium server: `./node_modules/.bin/webdriver-manager start`
+* Open a new terminal and run Protractor: `./node_modules/.bin/protractor protractor.conf.js`
 
 ## Credits
 
-Task Slayer is built on top of the following:
+Task Slayer was built thanks to the following:
 
 - [HTML5 Boilerplate](http://html5boilerplate.com)
 - [AngularJS](https://angularjs.org/)
